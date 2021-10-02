@@ -1,0 +1,307 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    box-sizing:border-box;
+}
+
+.game {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.game-debug {
+    /*display: flex;*/
+    flex-wrap: wrap;
+    margin: 20px auto;
+    position: relative;
+    width: 600px;
+    height: 400px;
+}
+
+
+.house {
+    display: inline-block;
+    position: absolute;
+    width:40%;
+    height:40%;
+    padding:7%;
+
+}
+.box {
+    position: relative;
+    width:100%;
+    height:100%;
+    background-color:white;
+    padding:20%;
+
+}
+.square {
+    position: absolute;
+    width:25%;
+    height:25%;
+
+}
+.square-one {
+    top:20%;
+    left:20%;
+}
+.square-two {
+    top: 20%;
+    right: 20%;
+}
+.square-three {
+    bottom: 20%;
+    left: 20%;
+}
+.square-four {
+    bottom: 20%;
+    right: 20%;
+}
+.home {
+    position: absolute;
+    top:40%;
+    left: 40%;
+    width: 20%;
+    height: 20%;
+    border-bottom: 20px solid #e53935;
+    border-top: 20px solid #fff176;
+    border-left: 20px solid #66bb6a;
+    border-right: 20px solid #29b6f6;
+}
+.cells {
+    position: absolute;
+    width: 6.66% ;
+    height: 6.66%;
+    border-collapse: collapse;
+    /*border: 1px solid #e5e5e569 ;*/
+}
+
+.safe {
+    background-color: #99999938;
+    /*
+    -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    */
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+.g-start {
+    background-color: #66bb6a;
+    /*
+    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+    */
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+
+}
+.y-start {
+    background-color: #fff176;
+    /*
+    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+    */
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+
+}
+.r-start {
+    background-color: #e53935;
+    /*
+    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+    */
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+
+}
+.b-start {
+    background-color: #29b6f6;
+    /*
+    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+    */
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+}
+
+
+.circle-clip {
+    clip-path: circle(8px at 50% 50%);
+}
+
+.circle-border {
+    clip-path: circle(10px at 50% 50%);
+}
+
+.circle-clip-active {
+    clip-path: circle(10px at 50% 50%);
+}
+
+.circle-border-active {
+    clip-path: circle(12px at 50% 50%);
+}
+
+
+
+.green {
+    background-color: #66bb6a;
+    border: none;
+}
+.red {
+    background-color: #e53935;
+    border: none;
+}
+.yellow {
+    background-color: #fff176;
+    border: none;
+}
+.blue {
+    background-color: #29b6f6;
+    border: none;
+}
+.black_grey {
+    background-color: #242424;
+    border: none;
+}
+.darkslategrey {
+    background-color: darkslategrey;
+}
+.white_border {
+    background-color: floralwhite;
+}
+.white-game {
+    background-color: white;
+}
+
+
+
+
+
+
+/*Green*/
+.C00 {top: 40%;left:6.66%;}
+.C01 {top: 40%;left:13.32%;}
+.C02 {top: 40%;left:19.98%;}
+.C03 {top: 40%;left:26.64%;}
+.C04 {top: 40%;left:33.3%;}
+.C05 {top: 33.3%;left:40%;}
+.C06 {top: 26.64%;left:40%;}
+.C07 {top: 19.98%;left:40%;}
+.C08 {top: 13.32%;left:40%;}
+.C09 {top: 6.66%;left:40%;}
+.C10 {top: 0;left:40%;}
+.C11 {top: 0;left:46.66%;}
+.C12 {top: 0;left:53.32%;}
+
+
+/*Yellow*/
+.C13 {top: 6.66%;left:53.32%;}
+.C14 {top: 13.32%;left:53.32%;}
+.C15 {top: 19.98%;left:53.32%;}
+.C16 {top: 26.64%;left:53.32%;}
+.C17 {top: 33.3%;left:53.32%;}
+.C18 {top: 40%;right: 33.3%;}
+.C19 {top: 40%;right:26.64%;}
+.C20 {top: 40%;right:19.98%;}
+.C21 {top: 40%;right:13.32%;}
+.C22 {top: 40%;right:6.66%;}
+.C23 {top: 40%;right:0;}
+.C24 {top: 46.66%;right:0}
+.C25 {top: 53.32%;right:0;}
+
+
+/*Blue*/
+.C26 {top: 53.32%;right:06.66%;}
+.C27 {top: 53.32%;right:13.32%;}
+.C28 {top: 53.32%;right:19.98%;}
+.C29 {top: 53.32%;right:26.64%;}
+.C30 {top: 53.32%;right:33.30%;}
+.C31 {bottom: 33.30%;left:53.32%;}
+.C32 {bottom: 26.64%;left:53.32%;}
+.C33 {bottom: 19.98%;left:53.32%;}
+.C34 {bottom: 13.32%;left:53.32%;}
+.C35 {bottom: 06.66%;left:53.32%;}
+.C36 {bottom: 0;left:53.32%;}
+.C37 {bottom: 0;left:46.66%;}
+.C38 {bottom: 0;left:40%;}
+
+
+/*Red*/
+.C39 {bottom: 6.66%;left:40%;}
+.C40 {bottom: 13.32%;left:40%;}
+.C41 {bottom: 19.98%;left:40%;}
+.C42 {bottom: 26.64%;left:40%;}
+.C43 {bottom: 33.3%;left:40%;}
+.C44 {top: 53.32%;left: 33.3%;}
+.C45 {top: 53.32%;left:26.64%;}
+.C46 {top: 53.32%;left:19.98%;}
+.C47 {top: 53.32%;left:13.32%;}
+.C48 {top: 53.32%;left:6.66%;}
+.C49 {top: 53.32%;left:0;}
+.C50 {top: 46.66%;left:0;}
+.C51 {top: 40%;}
+
+
+/*Color Piece*/
+.green_piece {
+    background-color: #2c9c2d;
+    border: none;
+}
+.red_piece {
+    background-color: #c21b17;
+    border: none;
+}
+.yellow_piece {
+    background-color: #d7cb35;
+    border: none;
+}
+.blue_piece {
+    background-color: #0781bb;
+    border: none;
+}
+
+
+
+/*Green House Piece*/
+.cell000{top: 12.10%; right: 80.90%}
+.cell001{top: 12.10%; right: 71.98%}
+.cell002{top: 21.10%; right: 80.90%}
+.cell003{top: 21.10%; right: 71.98%}
+
+/*Yellow House Piece*/
+.cell100{top: 12.10%; right: 20.98%}
+.cell101{top: 12.10%; right: 11.98%}
+.cell102{top: 21.10%; right: 20.98%}
+.cell103{top: 21.10%; right: 11.98%}
+
+/*Blue House Piece*/
+.cell200{top: 72.32%; right: 20.98%}
+.cell201{top: 72.32%; right: 11.98%}
+.cell202{top: 81.10%; right: 20.98%}
+.cell203{top: 81.10%; right: 11.98%}
+
+/*Red House Piece*/
+.cell300{top: 72.32%; right: 80.90%}
+.cell301{top: 72.32%; right: 71.98%}
+.cell302{top: 81.10%; right: 80.90%}
+.cell303{top: 81.10%; right: 71.98%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
