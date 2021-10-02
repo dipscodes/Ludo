@@ -12,5 +12,5 @@ myPromise.then(value => {
 
 //console.log("this");
 
-let t = 0;
+let t = 10;
 if (t) console.log(t);
