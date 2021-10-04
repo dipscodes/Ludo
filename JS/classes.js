@@ -183,8 +183,7 @@ class Piece {
         resolve([this.pieceNumber, this.getColor]);
     }
 
-    open() {
-        // this returns a promise of being clicked on a piece in the house and it opens up
+    open() { // this returns a promise of being clicked on a piece in the house and it opens up
         let resultTuple = commonPreAction(this);
         let parent = this;
 
@@ -219,8 +218,7 @@ class Piece {
         });
     }
 
-    close(face) {
-        // this returns a promise a being clicked on a piece on the move and it moves forward
+    close(face) { // this returns a promise a being clicked on a piece on the move and it moves forward
         this.setCurrentSteps = face;
         this.setCurrentStatus = this.getFinalStatus;
     }
@@ -321,8 +319,7 @@ class Player {
         alert(houseColorArray[this.getColor]);
     }
 
-    listenerMethod(resolve) {
-        // __listener works when clicked on a player dice & it removes click and makes a promise list
+    listenerMethod(resolve) { // __listener works when clicked on a player dice & it removes click and makes a promise list
         this.getPlayerButton.removeEventListener("click", this.getHandler); // this is the saved original handler that was passed in rollDiceNew
 
         let face = rollDie();
@@ -373,7 +370,6 @@ class Player {
             }
 
             this.setListOfPromises = [];
-            //console.log(nextPlayerIndex);
             resolve(nextPlayerIndex);
         });
     }
