@@ -32,29 +32,6 @@ let ludo = () => {
         return pieceElement;
     }
 
-/*    function commonPreAction(parent) {
-        // this does activation animation makes the pieces little bigger and returns piece coords
-        let resultTuple = [parent.getPieceNumber, parent.getColor];
-        let pieceElement = document.getElementById(parent.getPieceID);
-        let pieceChildren = pieceElement.children;
-
-        pieceChildren[0].classList.remove("circle-border");
-        pieceChildren[0].classList.add("circle-border-active");
-        pieceChildren[1].classList.remove("circle-clip");
-        pieceChildren[1].classList.add("circle-clip-active");
-
-        return resultTuple;
-    }
-
-    function commonAction(parent, vulnerability, steps, status, boardPosition) {
-        parent.setVulnerability = vulnerability;
-        parent.setCurrentSteps = steps;
-        parent.setCurrentStatus = status;
-        parent.setBoardPosition = boardPosition;
-
-        document.getElementById("board").appendChild(pieceAtIndex(parent.getBoardPosition, parent.getPieceID, parent.getColor));
-    }*/
-
 
     class Piece {
         constructor(color, pieceNumber) {
@@ -208,7 +185,7 @@ let ludo = () => {
             this.setCurrentStatus = this.getInitialStatus;
         }
 
-        move(face) {
+        move(face) { // promise for a movable piece with any roll
             this.activate();
 
             return new Promise((resolve, reject) => {
@@ -431,4 +408,6 @@ let ludo = () => {
     });
 };
 
-ludo();
+window.addEventListener("load", ludo);
+
+//ludo();
