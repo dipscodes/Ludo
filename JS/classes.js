@@ -183,32 +183,12 @@ let ludo = () => {
             resolve([this.pieceNumber, this.getColor]);
         }
 
-        /*open() { // this returns a promise of being clicked on a piece in the house and it opens up
-            let resultTuple = commonPreAction(this);
-            let parent = this;
-
-            return new Promise((resolve, reject) => {
-                this.getPiece.addEventListener("click", function __listener () {
-                    this.remove();
-                    commonAction(parent, false, 52, 1, 0);
-
-                    resolve(resultTuple);
-                });
-            });
-        }*/
 
         removeClick() {
             this.getPiece.removeEventListener("click", this.getHandler);
         }
 
-        openNew() {
-            /*let pieceElement = document.getElementById(parent.getPieceID);
-            let pieceChildren = pieceElement.children;
-
-            pieceChildren[0].classList.remove("circle-border");
-            pieceChildren[0].classList.add("circle-border-active");
-            pieceChildren[1].classList.remove("circle-clip");
-            pieceChildren[1].classList.add("circle-clip-active");*/
+        open() { // returns a promise that is attached to the available open-able pieces when rolled a 6
             this.activate();
 
             return new Promise((resolve, reject ) => {
@@ -235,12 +215,6 @@ let ludo = () => {
                 const functionListener = this.movingListener.bind(this, resolve, face);
                 this.setHandler = functionListener;
                 this.getPiece.addEventListener("click", functionListener);
-                /*document.getElementById(this.getPieceID).addEventListener("click", function __listener() {
-                    this.remove();
-                    commonAction(parent, !(!parent.getBoardPosition % 13), face, 1, face);
-
-                    resolve(resultTuple);
-                });*/
             });
         }
 
@@ -262,11 +236,16 @@ let ludo = () => {
             this.listOfCellPromises = [];
             this.handler = null;
             this.consecutiveSixes = 0;
+            this.numberOfAvailablePieces = 4;
 
             for (let i = 0; i < 4; i++) {
                 let piece = new Piece(color, i);
                 this.listOfPieces.push(piece);
             }
+        }
+
+        get getNumberOfAvailablePieces () {
+            return this.numberOfAvailablePieces;
         }
 
         get getNumberOfMaximumConsecutiveSixes () {
@@ -331,10 +310,11 @@ let ludo = () => {
             this.getPlayerButton.nextElementSibling.innerText = face;
 
             //face = 6;
+            let noMove = 0;
 
             for (let piece of this.getListOfPieces) {
                 if (piece.getCurrentStatus === piece.getInitialStatus && face === 6) {
-                    this.getListOfPromises.push(piece.openNew()); // add the opening act in the promise list, returns the piece coordinate
+                    this.getListOfPromises.push(piece.open()); // add the opening act in the promise list, returns the piece coordinate
                 } else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getCurrentSteps - face === 0) {
                     piece.close(face);
                 } else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getCurrentSteps - face !== 0) {
@@ -342,15 +322,22 @@ let ludo = () => {
                 } else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getBoardPosition + face < 52 && ludoBoard[piece.getBoardPosition]) {
                     piece.surrender();
                 } else {
-                    this.getListOfPromises.push(
-                      new Promise((resolve, reject) => {
-                          resolve([-1, -1]);
-                      }));
+                    noMove += 1;
                 }
+            }
+
+            if (noMove === this.getNumberOfAvailablePieces) {
+                this.getListOfPromises.push(
+                  new Promise((resolve, reject) => {
+                      resolve([-1, -1]);
+                  })
+                );
             }
 
             Promise.race(this.getListOfPromises).then((value) => {
                 let nextPlayerIndex = this.getColor;
+
+                console.log("nextPlayerIndex = " + nextPlayerIndex);
 
                 /*console.log(value);
                 for (let i = 0; i < 4; i++) {
@@ -375,6 +362,7 @@ let ludo = () => {
                 }
 
                 this.setListOfPromises = [];
+                console.log(nextPlayerIndex);
                 resolve(nextPlayerIndex);
             });
         }
