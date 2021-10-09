@@ -1,4 +1,4 @@
-let ludo = () => {
+const ludo = () => {
     "use strict";
     const houseColorArray = ["green", "yellow", "blue", "red"];
 
@@ -73,7 +73,8 @@ let ludo = () => {
             return this.currentSteps;
         }
         set setCurrentSteps(face) {
-            let temp = this.currentSteps;
+            let temp = this.getCurrentSteps;
+            console.log('currentSteps now = ' + this.getCurrentStatus);
             if (Number.isInteger(face) && face >= 1 && face <= 6) {
                 temp -= face;
                 if (temp < 0) {
@@ -83,6 +84,7 @@ let ludo = () => {
             } else if (face === 52) { temp = face; }
 
             if (temp >= 0) { this.currentSteps = temp; }
+            console.log('currentSteps later = ' + this.getCurrentStatus);
         }
 
         get getInitialStatus() {
@@ -145,7 +147,7 @@ let ludo = () => {
 
             document.getElementById("board").appendChild(pieceAtIndex(this.getBoardPosition, this.getPieceID, this.getColor));
 
-            resolve([this.pieceNumber, this.getColor]);
+            resolve([this.getPieceNumber, this.getColor]);
         }
 
         movingListener(resolve, face) {
@@ -251,7 +253,6 @@ let ludo = () => {
             }
         }
 
-
         get getPlayerButton() {
             return document.getElementById(houseColorArray[this.color] + "Button");
         }
@@ -276,17 +277,12 @@ let ludo = () => {
             return this.listOfCellPromises;
         }
 
-        alertTest() {
-            //alert(houseColorArray[this.getColor]);
-        }
-
         listenerMethod(resolve) { // __listener works when clicked on a player dice & it removes click and makes a promise list
             this.getPlayerButton.removeEventListener("click", this.getHandler); // this is the saved original handler that was passed in rollDiceNew
 
             let face = rollDie();
             this.getPlayerButton.nextElementSibling.innerText = face;
 
-            //face = 6;
             let noMove = 0;
 
             for (let piece of this.getListOfPieces) {
@@ -315,14 +311,6 @@ let ludo = () => {
                 let nextPlayerIndex = this.getColor;
 
                 console.log("nextPlayerIndex = " + nextPlayerIndex);
-
-                /*console.log(value);
-                for (let i = 0; i < 4; i++) {
-                    if (i !== value[0]) {
-                        //console.log(i);
-                        this.getListOfPieces[i].removeClick();
-                    }
-                }*/
 
                 for (let piece of this.getListOfPieces) {
                     if (piece.getPieceNumber === value[0]) continue;
@@ -355,13 +343,13 @@ let ludo = () => {
 
     class Board {
         constructor(playerCount) {
-            this.colorArray = [[0, 2], [0, 1, 2], [0, 1, 2, 3]];
+            this.colorArray = [null, [0], [0, 2], [0, 1, 2], [0, 1, 2, 3]];
             this.playerArray = [];
             this.numberOfPlayers = playerCount;
             this.activePlayer = null;
 
-            for (let i = 0; i < this.getNumberOfPlayers; i++) {
-                let player = new Player(this.getColorArray[playerCount - 2][i]);
+            for (let iterate = 0; iterate < this.getNumberOfPlayers; iterate++) {
+                let player = new Player(this.getColorArray[playerCount][iterate]);
                 player.setVisibility = true;
                 this.getPlayerArray.push(player);
             }
@@ -409,5 +397,3 @@ let ludo = () => {
 };
 
 window.addEventListener("load", ludo);
-
-//ludo();
