@@ -74,7 +74,7 @@ const ludo = () => {
         }
         set setCurrentSteps(face) {
             let temp = this.getCurrentSteps;
-            console.log('currentSteps now = ' + this.getCurrentStatus);
+            console.log('currentSteps now = ' + this.currentSteps);
             if (Number.isInteger(face) && face >= 1 && face <= 6) {
                 temp -= face;
                 if (temp < 0) {
@@ -84,7 +84,7 @@ const ludo = () => {
             } else if (face === 52) { temp = face; }
 
             if (temp >= 0) { this.currentSteps = temp; }
-            console.log('currentSteps later = ' + this.getCurrentStatus);
+            console.log('currentSteps later = ' + this.currentSteps);
         }
 
         get getInitialStatus() {
@@ -277,7 +277,7 @@ const ludo = () => {
             return this.listOfCellPromises;
         }
 
-        listenerMethod(resolve) { // __listener works when clicked on a player dice & it removes click and makes a promise list
+        listenerMethod(resolve, activePlayerIndex, numberOfPlayers) { // __listener works when clicked on a player dice & it removes click and makes a promise list
             this.getPlayerButton.removeEventListener("click", this.getHandler); // this is the saved original handler that was passed in rollDiceNew
 
             let face = rollDie();
@@ -308,12 +308,13 @@ const ludo = () => {
             }
 
             Promise.race(this.getListOfPromises).then((value) => {
-                let nextPlayerIndex = this.getColor;
+                let nextPlayerIndex = activePlayerIndex;
+                console.log("current player = " + nextPlayerIndex);
 
-                console.log("nextPlayerIndex = " + nextPlayerIndex);
+                //console.log("nextPlayerIndex = " + nextPlayerIndex);
 
                 for (let piece of this.getListOfPieces) {
-                    if (piece.getPieceNumber === value[0]) continue;
+                    if (piece.getPieceNumber === value[0]) { continue;}
                     piece.removeClick();
                     piece.deactivate();
                 }
@@ -321,20 +322,24 @@ const ludo = () => {
                 if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
                 else this.setNumberOfConsecutiveSixes = 0;
 
-                if (!this.getNumberOfConsecutiveSixes) {
+                console.log("six = " + this.getNumberOfConsecutiveSixes);
+
+                if (this.getNumberOfConsecutiveSixes === 0) {
                     nextPlayerIndex += 1;
-                    nextPlayerIndex %= 4;
+                    nextPlayerIndex %= numberOfPlayers;
+                    //console.log("next player = " + nextPlayerIndex);
                 }
 
                 this.setListOfPromises = [];
-                console.log(nextPlayerIndex);
+
+                console.log("next player = " + nextPlayerIndex);
                 resolve(nextPlayerIndex);
             });
         }
 
-        rollDiceNew() {
+        rollDiceNew(activePlayerIndex, numberOfPlayers) {
             return new Promise((resolve, reject) => { // resolves when an eligible piece is clicked
-                const listenerFunction = this.listenerMethod.bind(this, resolve);
+                const listenerFunction = this.listenerMethod.bind(this, resolve, activePlayerIndex, numberOfPlayers);
                 this.setHandler = listenerFunction; // store the handler for future removal this needs to be original as creating a same handler won't work
                 this.getPlayerButton.addEventListener("click", listenerFunction);
             });
@@ -347,12 +352,21 @@ const ludo = () => {
             this.playerArray = [];
             this.numberOfPlayers = playerCount;
             this.activePlayer = null;
+            this.activePlayerIndex = 0;
 
             for (let iterate = 0; iterate < this.getNumberOfPlayers; iterate++) {
                 let player = new Player(this.getColorArray[playerCount][iterate]);
                 player.setVisibility = true;
                 this.getPlayerArray.push(player);
             }
+        }
+
+        get getActivePlayerIndex() {
+            return this.activePlayerIndex;
+        }
+
+        set setActivePlayerIndex(index) {
+            this.activePlayerIndex = index;
         }
 
         get getColorArray() {
@@ -372,9 +386,9 @@ const ludo = () => {
             this.setActivePlayer = this.getPlayerArray[0];
             //let turn = 0;
 
-            while (playerCount > 1) {
-                let activePlayerIndex = await this.getActivePlayer.rollDiceNew(); // waits for the player click on a piece of choice
-                this.setActivePlayer = this.getPlayerArray[activePlayerIndex]; // updates the active player according to the previous move
+            while (playerCount >= 1) {
+                this.setActivePlayerIndex = await this.getActivePlayer.rollDiceNew(this.getActivePlayerIndex, this.getNumberOfPlayers); // waits for the player click on a piece of choice
+                this.setActivePlayer = this.getPlayerArray[this.getActivePlayerIndex]; // updates the active player according to the previous move
             }
 
             return 0;
@@ -389,7 +403,7 @@ const ludo = () => {
         }
     }
 
-    let testBoard = new Board(4);
+    let testBoard = new Board(3);
 
     testBoard.play().then((value) => {
         //console.log(value);
