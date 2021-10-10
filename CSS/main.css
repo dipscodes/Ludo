@@ -149,7 +149,7 @@
     border: none;
 }
 .yellow {
-    background-color: #fff176;
+    background-color: #d2c42b;
     border: none;
 }
 .blue {
@@ -284,24 +284,30 @@
 .cell303{top: 81.10%; right: 71.98%}
 
 
+/*Green Final Cells*/
+.g0 {top: 46.66%;left:33.30%;}
+.g1 {top: 46.66%;left:26.64%}
+.g2 {top: 46.66%;left:19.98%;}
+.g3 {top: 46.66%;left:13.32%;}
+.g4 {top: 46.66%;left:06.66%;}
 
+/*Yellow Final Cells*/
+.y4 {top: 06.66%;left:46.66%;}
+.y3 {top: 13.32%;left:46.66%;}
+.y2 {top: 19.98%;left:46.66%;}
+.y1 {top: 26.64%;left:46.66%;}
+.y0 {top: 33.30%;left:46.66%;}
 
+/*Blue Final Cells*/
+.b0 {top: 46.66%;right:33.30%;}
+.b1 {top: 46.66%;right:26.64%;}
+.b2 {top: 46.66%;right:19.98%;}
+.b3 {top: 46.66%;right:13.32%;}
+.b4 {top: 46.66%;right:06.66%;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*Red Final Cells*/
+.r0 {bottom: 06.66%;left:46.66%;}
+.r1 {bottom: 13.32%;left:46.66%;}
+.r2 {bottom: 19.98%;left:46.66%;}
+.r3 {bottom: 26.64%;left:46.66%;}
+.r4 {bottom: 33.30%;left:46.66%;}
