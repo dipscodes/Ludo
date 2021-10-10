@@ -791,3 +791,17 @@ testBoard.play().then((value) => {
 */
 
 
+/*
+N
+O
+O
+o
+o
+o
+o
+　　　　 。
+　　　 。
+.
+.
+.
+.*/
