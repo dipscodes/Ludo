@@ -4,278 +4,241 @@
     <meta charset="UTF-8">
     <title>Ludo</title>
     <link rel="stylesheet" href="CSS/main.css">
+    <script src="JS/classes.js"></script>
+    <script src="JS/main.js"></script>
 </head>
 
 <body class="darkslategrey" style="color: whitesmoke">
 
-<div class="game-debug white-game">
-    <div class="house green">
-        <input id="greenButton" type="button" value="Green Player">
-        <div></div>
-    </div>
-    <div class="house yellow" style="right: 0">
-        <input id="yellowButton" type="button" value="Yellow Player">
-        <div></div>
-    </div>
-    <div class="house red" style="bottom: 0">
-        <input id="redButton" type="button" value="Red Player">
-        <div></div>
-    </div>
-    <div class="house blue" style="bottom: 0;right: 0">
-        <input id="blueButton" type="button" value="Blue Player">
-        <div></div>
-    </div>
-</div>
-
-<div class="black_grey game" id="board">
-    <!-- Green House -->
-
-    <div class="house green" id="green" style="border: 1px solid black;">
-        <div class="box" style="border: 1px solid black;">
-            <div class="square square-one green"></div>
-            <div id="greenPiece0" hidden>
-                <div class="square square-one black_grey circle-border"></div>
-                <div class="square square-one green_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-two green"></div>
-            <div id="greenPiece1" hidden>
-                <div class="square square-two black_grey circle-border"></div>
-                <div class="square square-two green_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-three green"></div>
-            <div id="greenPiece2" hidden>
-                <div class="square square-three black_grey circle-border"></div>
-                <div class="square square-three green_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-four green"></div>
-            <div id="greenPiece3" hidden>
-                <div class="square square-four black_grey circle-border"></div>
-                <div class="square square-four green_piece circle-clip"></div>
-            </div>
+    <div class="game-debug white-game">
+        <div class="house green">
+            <input id="greenButton" type="button" value="Green Player">
+            <div></div>
+        </div>
+        <div class="house yellow" style="right: 0">
+            <input id="yellowButton" type="button" value="Yellow Player">
+            <div></div>
+        </div>
+        <div class="house red" style="bottom: 0">
+            <input id="redButton" type="button" value="Red Player">
+            <div></div>
+        </div>
+        <div class="house blue" style="bottom: 0;right: 0">
+            <input id="blueButton" type="button" value="Blue Player">
+            <div></div>
         </div>
     </div>
 
-    <!-- Yellow House -->
+    <div class="black_grey game" id="board">
+        <!-- Green House -->
+        <div class="house green" id="green" style="border: 1px solid black;">
+            <div class="box" style="border: 1px solid black;">
+                <div class="square square-one green"></div>
+                <div id="greenPiece0" hidden>
+                    <div class="square square-one black_grey circle-border"></div>
+                    <div class="square square-one green_piece circle-clip"></div>
+                </div>
 
-    <div class="house yellow" id="yellow" style="right: 0;border: 1px solid black;">
-        <div class="box" style="border: 1px solid black;">
-            <div class="square square-one yellow"></div>
-            <div id="yellowPiece0" hidden>
-                <div class="square square-one black_grey circle-border"></div>
-                <div class="square square-one yellow_piece circle-clip"></div>
-            </div>
+                <div class="square square-two green"></div>
+                <div id="greenPiece1" hidden>
+                    <div class="square square-two black_grey circle-border"></div>
+                    <div class="square square-two green_piece circle-clip"></div>
+                </div>
 
-            <div class="square square-two yellow"></div>
-            <div id="yellowPiece1" hidden>
-                <div class="square square-two black_grey circle-border"></div>
-                <div class="square square-two yellow_piece circle-clip"></div>
-            </div>
+                <div class="square square-three green"></div>
+                <div id="greenPiece2" hidden>
+                    <div class="square square-three black_grey circle-border"></div>
+                    <div class="square square-three green_piece circle-clip"></div>
+                </div>
 
-            <div class="square square-three yellow"></div>
-            <div id="yellowPiece2" hidden>
-                <div class="square square-three black_grey circle-border"></div>
-                <div class="square square-three yellow_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-four yellow"></div>
-            <div id="yellowPiece3" hidden>
-                <div class="square square-four black_grey circle-border"></div>
-                <div class="square square-four yellow_piece circle-clip"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Red House -->
-
-    <div class="house red" id="red" style="bottom: 0;border: 1px solid black;">
-        <div class="box" style="border: 1px solid black;">
-            <div class="square square-one red"></div>
-            <div id="redPiece0" hidden>
-                <div class="square square-one black_grey circle-border"></div>
-                <div class="square square-one red_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-two red"></div>
-            <div id="redPiece1" hidden>
-                <div class="square square-two black_grey circle-border"></div>
-                <div class="square square-two red_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-three red"></div>
-            <div id="redPiece2" hidden>
-                <div class="square square-three black_grey circle-border"></div>
-                <div class="square square-three red_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-four red"></div>
-            <div id="redPiece3" hidden>
-                <div class="square square-four black_grey circle-border"></div>
-                <div class="square square-four red_piece circle-clip"></div>
+                <div class="square square-four green"></div>
+                <div id="greenPiece3" hidden>
+                    <div class="square square-four black_grey circle-border"></div>
+                    <div class="square square-four green_piece circle-clip"></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Blue House -->
+        <!-- Yellow House -->
+        <div class="house yellow" id="yellow" style="right: 0;border: 1px solid black;">
+            <div class="box" style="border: 1px solid black;">
+                <div class="square square-one yellow"></div>
+                <div id="yellowPiece0" hidden>
+                    <div class="square square-one black_grey circle-border"></div>
+                    <div class="square square-one yellow_piece circle-clip"></div>
+                </div>
 
-    <div class="house blue" id="blue" style="bottom: 0;right: 0;border: 1px solid black;">
-        <div class="box" style="border: 1px solid black;">
-            <div class="square square-one blue"></div>
-            <div id="bluePiece0" hidden>
-                <div class="square square-one black_grey circle-border"></div>
-                <div class="square square-one blue_piece circle-clip"></div>
+                <div class="square square-two yellow"></div>
+                <div id="yellowPiece1" hidden>
+                    <div class="square square-two black_grey circle-border"></div>
+                    <div class="square square-two yellow_piece circle-clip"></div>
+                </div>
+
+                <div class="square square-three yellow"></div>
+                <div id="yellowPiece2" hidden>
+                    <div class="square square-three black_grey circle-border"></div>
+                    <div class="square square-three yellow_piece circle-clip"></div>
+                </div>
+
+                <div class="square square-four yellow"></div>
+                <div id="yellowPiece3" hidden>
+                    <div class="square square-four black_grey circle-border"></div>
+                    <div class="square square-four yellow_piece circle-clip"></div>
+                </div>
             </div>
-
-            <div class="square square-two blue"></div>
-            <div id="bluePiece1" hidden>
-                <div class="square square-two black_grey circle-border"></div>
-                <div class="square square-two blue_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-three blue"></div>
-            <div id="bluePiece2" hidden>
-                <div class="square square-three black_grey circle-border"></div>
-                <div class="square square-three blue_piece circle-clip"></div>
-            </div>
-
-            <div class="square square-four blue"></div>
-            <div id="bluePiece3" hidden>
-                <div class="square square-four black_grey circle-border"></div>
-                <div class="square square-four blue_piece circle-clip"></div>
-            </div>
-
         </div>
+
+        <!-- Red House -->
+        <div class="house red" id="red" style="bottom: 0;border: 1px solid black;">
+            <div class="box" style="border: 1px solid black;">
+                <div class="square square-one red"></div>
+                <div id="redPiece0" hidden>
+                    <div class="square square-one black_grey circle-border"></div>
+                    <div class="square square-one red_piece circle-clip"></div>
+                </div>
+
+                <div class="square square-two red"></div>
+                <div id="redPiece1" hidden>
+                    <div class="square square-two black_grey circle-border"></div>
+                    <div class="square square-two red_piece circle-clip"></div>
+                </div>
+
+                <div class="square square-three red"></div>
+                <div id="redPiece2" hidden>
+                    <div class="square square-three black_grey circle-border"></div>
+                    <div class="square square-three red_piece circle-clip"></div>
+                </div>
+
+                <div class="square square-four red"></div>
+                <div id="redPiece3" hidden>
+                    <div class="square square-four black_grey circle-border"></div>
+                    <div class="square square-four red_piece circle-clip"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blue House -->
+        <div class="house blue" id="blue" style="bottom: 0;right: 0;border: 1px solid black;">
+            <div class="box" style="border: 1px solid black;">
+                <div class="square square-one blue"></div>
+                <div id="bluePiece0" hidden>
+                    <div class="square square-one black_grey circle-border"></div>
+                    <div class="square square-one blue_piece circle-clip"></div>
+                </div>
+
+                <div class="square square-two blue"></div>
+                <div id="bluePiece1" hidden>
+                    <div class="square square-two black_grey circle-border"></div>
+                    <div class="square square-two blue_piece circle-clip"></div>
+                </div>
+
+                <div class="square square-three blue"></div>
+                <div id="bluePiece2" hidden>
+                    <div class="square square-three black_grey circle-border"></div>
+                    <div class="square square-three blue_piece circle-clip"></div>
+                </div>
+
+                <div class="square square-four blue"></div>
+                <div id="bluePiece3" hidden>
+                    <div class="square square-four black_grey circle-border"></div>
+                    <div class="square square-four blue_piece circle-clip"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Home Center -->
+        <div class="home"></div>
+
+        <!-- Green Cells -->
+        <div class="cells g-start C00"></div>
+        <div class="cells C01">01</div>
+        <div class="cells C02">02</div>
+        <div class="cells C03">03</div>
+        <div class="cells C04">04</div>
+        <div class="cells C05">05</div>
+        <div class="cells C06">06</div>
+        <div class="cells C07">07</div>
+        <div class="cells safe C08"></div>
+        <div class="cells C09">09</div>
+        <div class="cells C10">10</div>
+        <div class="cells C11">11</div>
+        <div class="cells C12">12</div>
+
+        <!-- Yellow Cells -->
+        <div class="cells y-start C13"></div>
+        <div class="cells C14">14</div>
+        <div class="cells C15">15</div>
+        <div class="cells C16">16</div>
+        <div class="cells C17">17</div>
+        <div class="cells C18">18</div>
+        <div class="cells C19">19</div>
+        <div class="cells C20">20</div>
+        <div class="cells safe C21"></div>
+        <div class="cells C22">22</div>
+        <div class="cells C23">23</div>
+        <div class="cells C24">24</div>
+        <div class="cells C25">25</div>
+
+        <!-- Blue Cells -->
+        <div class="cells b-start C26"></div>
+        <div class="cells C27">27</div>
+        <div class="cells C28">28</div>
+        <div class="cells C29">29</div>
+        <div class="cells C30">30</div>
+        <div class="cells C31">31</div>
+        <div class="cells C32">32</div>
+        <div class="cells C33">33</div>
+        <div class="cells safe C34"></div>
+        <div class="cells C35">35</div>
+        <div class="cells C36">36</div>
+        <div class="cells C37">37</div>
+        <div class="cells C38">38</div>
+
+        <!-- Red Cells -->
+        <div class="cells r-start C39"></div>
+        <div class="cells C40">40</div>
+        <div class="cells C41">41</div>
+        <div class="cells C42">42</div>
+        <div class="cells C43">43</div>
+        <div class="cells C44">44</div>
+        <div class="cells C45">45</div>
+        <div class="cells C46">46</div>
+        <div class="cells safe C47"></div>
+        <div class="cells C48">48</div>
+        <div class="cells C49">49</div>
+        <div class="cells C50">50</div>
+        <div class="cells C51">51</div>
+
+        <!-- Green Home -->
+        <div class="cells green" style=""></div>
+        <div class="cells green" style=""></div>
+        <div class="cells green" style=""></div>
+        <div class="cells green" style=""></div>
+        <div class="cells green g4" style=""></div>
+
+        <!-- Yellow Home -->
+        <div class="cells yellow y0" style=""></div>
+        <div class="cells yellow y1" style=""></div>
+        <div class="cells yellow y2" style=""></div>
+        <div class="cells yellow y3" style=""></div>
+        <div class="cells yellow y4" style=""></div>
+
+        <!-- Blue Home -->
+        <div class="cells blue b0" style=""></div>
+        <div class="cells blue b1" style=""></div>
+        <div class="cells blue b2" style=""></div>
+        <div class="cells blue b3" style=""></div>
+        <div class="cells blue b4" style=""></div>
+
+        <!-- Red Home -->
+        <div class="cells red r0" style=""></div>
+        <div class="cells red r1" style=""></div>
+        <div class="cells red r2" style=""></div>
+        <div class="cells red r3" style=""></div>
+        <div class="cells red r4"></div>
+
+        <!-- End -->
     </div>
-
-    <!-- Home Center -->
-
-    <div class="home"></div>
-
-    <!-- Green Cells -->
-
-    <div class="cells g-start C00"></div>
-    <div class="cells C01">01</div>
-    <div class="cells C02">02</div>
-    <div class="cells C03">03</div>
-    <div class="cells C04">04</div>
-    <div class="cells C05">05</div>
-    <div class="cells C06">06</div>
-    <div class="cells C07">07</div>
-    <div class="cells safe C08"></div>
-    <div class="cells C09">09</div>
-    <div class="cells C10">10</div>
-    <div class="cells C11">11</div>
-    <div class="cells C12">12</div>
-
-    <!-- Yellow Cells -->
-
-    <div class="cells y-start C13"></div>
-    <div class="cells C14">14</div>
-    <div class="cells C15">15</div>
-    <div class="cells C16">16</div>
-    <!--<div id="bluePiece1" hidden>
-        <div class="cells C16 white_border circle-border"></div>
-        <div class="cells C16 blue_piece circle-clip"></div>
-    </div>-->
-    <div class="cells C17">17</div>
-    <!--<div id="bluePiece2" hidden>
-        <div class="cells C17 white_border circle-border"></div>
-        <div class="cells C17 blue_piece circle-clip"></div>
-    </div>-->
-    <div class="cells C18">18</div>
-    <!--<div id="bluePiece3" hidden>
-        <div class="cells C18 white_border circle-border"></div>
-        <div class="cells C18 blue_piece circle-clip"></div>
-    </div>-->
-    <div class="cells C19">19</div>
-    <div class="cells C20">20</div>
-    <div class="cells safe C21"></div>
-    <div class="cells C22">22</div>
-    <div class="cells C23">23</div>
-    <div class="cells C24">24</div>
-    <div class="cells C25">25</div>
-
-    <!-- Blue Cells -->
-
-    <div class="cells b-start C26"></div>
-    <div class="cells C27">27</div>
-    <div class="cells C28">28</div>
-    <div class="cells C29">29</div>
-    <div class="cells C30">30</div>
-    <div class="cells C31">31</div>
-    <div class="cells C32">32</div>
-    <div class="cells C33">33</div>
-    <div class="cells safe C34"></div>
-    <div class="cells C35">35</div>
-    <div class="cells C36">36</div>
-    <div class="cells C37">37</div>
-    <div class="cells C38">38</div>
-
-    <!-- Red Cells -->
-
-    <div class="cells r-start C39"></div>
-    <div class="cells C40">40</div>
-    <div class="cells C41">41</div>
-    <div class="cells C42">42</div>
-    <div class="cells C43">43</div>
-    <div class="cells C44">44</div>
-    <div class="cells C45">45</div>
-    <div class="cells C46">46</div>
-    <div class="cells safe C47"></div>
-    <div class="cells C48">48</div>
-    <div class="cells C49">49</div>
-    <div class="cells C50">50</div>
-    <div class="cells C51">51</div>
-
-    <!-- Green Home -->
-
-    <div class="cells green" style="top: 46.66%;left:33.30%;"></div>
-    <div class="cells green" style="top: 46.66%;left:26.64%;"></div>
-    <div class="cells green" style="top: 46.66%;left:19.98%;"></div>
-    <div class="cells green" style="top: 46.66%;left:13.32%;"></div>
-    <div class="cells green" style="top: 46.66%;left:06.66%;"></div>
-
-    <!-- Yellow Home -->
-
-    <div class="cells yellow" style="top: 06.66%;left:46.66%;"></div>
-    <div class="cells yellow" style="top: 13.32%;left:46.66%;"></div>
-    <div class="cells yellow" style="top: 19.98%;left:46.66%;"></div>
-    <div class="cells yellow" style="top: 26.64%;left:46.66%;"></div>
-    <div class="cells yellow" style="top: 33.30%;left:46.66%;"></div>
-
-    <!-- Blue Home -->
-
-    <div class="cells blue" style="top: 46.66%;right:33.30%;"></div>
-    <div class="cells blue" style="top: 46.66%;right:26.64%;"></div>
-    <div class="cells blue" style="top: 46.66%;right:19.98%;"></div>
-    <div class="cells blue" style="top: 46.66%;right:13.32%;"></div>
-    <div class="cells blue" style="top: 46.66%;right:06.66%;"></div>
-
-    <!-- Red Home -->
-
-    <div class="cells red" style="bottom: 06.66%;left:46.66%;"></div>
-    <div class="cells red" style="bottom: 13.32%;left:46.66%;"></div>
-    <div class="cells red" style="bottom: 19.98%;left:46.66%;"></div>
-    <div class="cells red" style="bottom: 26.64%;left:46.66%;"></div>
-    <div class="cells red" style="bottom: 33.30%;left:46.66%;"></div>
-
-
-    <!-- End -->
-
-    <!--<div id="piece0">
-        <div class="cells C13 white_border circle-border"></div>
-        <div class="cells C13 red_piece circle-clip"></div>
-    </div>-->
-
-    <!--<div id='bluePiece0'>
-        <div class='cells C28 white_border circle-border'></div>
-        <div class='cells C28 blue_piece circle-clip'></div>
-    </div>-->
-</div>
-
-<script src="JS/classes.js"></script>
-<script src="JS/main.js"></script>
 </body>
 </html>
