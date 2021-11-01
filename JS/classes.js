@@ -232,7 +232,7 @@ const ludo = () => {
 			this.setCurrentStatus = 1;
 			this.setBoardPosition = face;
 
-			let value = [-1, -1];
+			let value = [];
 
 			if (this.getAbsolutePosition + face > 50 && this.getAbsolutePosition + face < 56) {
 				let boardPositionClass = this.getPieceColor + (this.getAbsolutePosition + face - 50);
@@ -363,13 +363,24 @@ const ludo = () => {
 			Promise.race(this.getListOfPromises).then((value) => {
 				let nextPlayerIndex = activePlayerIndex;
 
-				//console.log(value);
+				console.log(value);
+				let color;
+				try {
+					color = value[2][0][1];
+					//ekhane formula lagbe
+				} catch (e) {
+					color = -2;
+				}
+
+				console.log(color);
 
 				for (let piece of this.getListOfPieces) {
 					if (piece.getPieceNumber === value[0]) { continue;}
 					piece.removeClick();
 					piece.deactivate();
 				}
+
+
 
 				if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
 				else this.setNumberOfConsecutiveSixes = 0;
@@ -438,9 +449,9 @@ const ludo = () => {
 
 				this.setActivePlayerIndex = nextActivePlayerInfo[0];
 				let listOfCutPieces = nextActivePlayerInfo[2];
-				for (let piece of nextActivePlayerInfo) {
+				/*for (let piece of nextActivePlayerInfo) {
 					this.getPlayerArray[piece[1]].listOfPieces[piece[0]].cutPiece();
-				}
+				}*/
 				console.log(nextActivePlayerInfo);
 				//console.log(nextActivePlayerInfo);
 				this.setActivePlayer = this.getPlayerArray[this.getActivePlayerIndex]; // updates the active player according to the previous move
