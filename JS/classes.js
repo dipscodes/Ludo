@@ -17,8 +17,8 @@ const ludo = () => {
 		let cutPiecesArray = [];
 
 		for (let index = 0; index < numberOfOverlappedPieces; index++) {
-			cutPiecesArray[index] = [cutPieces[index].getAttribute("data-piece")
-				,cutPieces[index].getAttribute("data-color")];
+			cutPiecesArray[index] = [parseInt(cutPieces[index].getAttribute("data-piece"))
+				,parseInt(cutPieces[index].getAttribute("data-color"))];
 		}
 
 		let line1 = '<div class="cells ' + boardPositionClass + ' white_border circle-border"></div>';
@@ -255,7 +255,7 @@ const ludo = () => {
 		}
 
 		cutPiece() {
-			this.getPiece.remove();
+
 		}
 
 		movePiece(face) {
@@ -363,16 +363,16 @@ const ludo = () => {
 			Promise.race(this.getListOfPromises).then((value) => {
 				let nextPlayerIndex = activePlayerIndex;
 
-				console.log(value);
+				//console.log(value);
 				let color;
 				try {
 					color = value[2][0][1];
 					//ekhane formula lagbe
 				} catch (e) {
-					color = -2;
+					color = null;
 				}
 
-				console.log(color);
+				//console.log(color);
 
 				for (let piece of this.getListOfPieces) {
 					if (piece.getPieceNumber === value[0]) { continue;}
@@ -391,7 +391,7 @@ const ludo = () => {
 				}
 				this.setListOfPromises = [];
 
-				resolve([nextPlayerIndex, value[2]]);
+				resolve([nextPlayerIndex, color, value[2]]);
 			});
 		}
 
@@ -446,14 +446,20 @@ const ludo = () => {
 
 			while (playerCount >= 1) {
 				let nextActivePlayerInfo = await this.getActivePlayer.rollDiceNew(this.getActivePlayerIndex, this.getNumberOfPlayers); // waits for the player click on a piece of choice
-
 				this.setActivePlayerIndex = nextActivePlayerInfo[0];
+
 				let listOfCutPieces = nextActivePlayerInfo[2];
-				/*for (let piece of nextActivePlayerInfo) {
-					this.getPlayerArray[piece[1]].listOfPieces[piece[0]].cutPiece();
-				}*/
-				console.log(nextActivePlayerInfo);
-				//console.log(nextActivePlayerInfo);
+				let cutPieceColor = nextActivePlayerInfo[1];
+				for (let player of this.getPlayerArray) {
+					if (player.getColor === cutPieceColor) {
+						for (let piece of listOfCutPieces) {
+							//console.log(document.getElementById(player.getListOfPieces[piece[0]].getPieceID));
+							player.getListOfPieces[piece[0]].cutPiece();
+						}
+						break;
+					}
+				}
+
 				this.setActivePlayer = this.getPlayerArray[this.getActivePlayerIndex]; // updates the active player according to the previous move
 			}
 
