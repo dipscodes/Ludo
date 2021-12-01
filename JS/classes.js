@@ -248,9 +248,7 @@ const ludo = () => {
 				value = pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
 				this.setAbsolutePosition = (this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
 			}
-
-			//console.log(value);
-
+			
 			resolve([this.getPieceNumber, this.getColor, value]);
 		}
 
@@ -379,8 +377,6 @@ const ludo = () => {
 					piece.removeClick();
 					piece.deactivate();
 				}
-
-
 
 				if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
 				else this.setNumberOfConsecutiveSixes = 0;
