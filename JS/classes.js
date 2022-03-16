@@ -195,19 +195,26 @@ const ludo = () => {
 
 			let boardPosition = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
 			let cutPieceInfo = pieceAtIndex(boardPosition, this.getPieceID, this.getColor, this.getPieceNumber);
-			//console.log(cutPieceInfo);
 
 			resolve([this.getPieceNumber, this.getColor, cutPieceInfo]);
 		}
 
 		close(face) { //this returns a promise a being clicked on a piece on the move, and it moves forward
-			this.setCurrentSteps = face;
-			this.setCurrentStatus = this.getFinalStatus;
+			return new Promise((resolve, reject) => {
+				const functionListener = this.closingListener.bind(this, resolve, face);
+				this.setHandler = functionListener;
+				this.getPiece.addEventListener("click", functionListener);
+			});
 		}
 
-		surrender() {
-			this.setCurrentSteps = this.getCurrentSteps - this.getTotalSteps;
-			this.setCurrentStatus = this.getInitialStatus;
+		closingListener(resolve, face) {
+			this.getPiece.remove();
+			this.setVulnerability = false;
+			this.setCurrentSteps = face;
+			this.setCurrentStatus = -1;
+			this.setBoardPosition = face;
+
+			resolve([this.getPieceNumber, this.getColor, []]);
 		}
 
 		move(face) { //promise for a movable piece with any roll
@@ -243,6 +250,7 @@ const ludo = () => {
 				pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor);
 			} else if (this.getAbsolutePosition + face === 56) {
 				this.setAbsolutePosition = this.getAbsolutePosition + face;
+				this.setCurrentStatus = -1;
 
 				//ekhane kaj ache anek
 				//alert(this.getPieceColor + this.getPieceID);
@@ -349,26 +357,29 @@ const ludo = () => {
 			let face = rollDie();
 			face = parseInt(this.getPlayerButton.nextElementSibling.value);// = face; // revamp this to the highest possible by you
 
-			let noMove = 0;
+			if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
+			else this.setNumberOfConsecutiveSixes = 0;
+
+			if (face === 6 && this.getNumberOfConsecutiveSixes === 0)	face = 5;
+
+			let noAvailableMoves = 0;
 
 			for (let piece of this.getListOfPieces) {
 				if (piece.getCurrentStatus === piece.getInitialStatus && face === 6) {
 					this.getListOfPromises.push(piece.open()); // add the opening act in the promise list, returns the piece coordinate
-				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face < 57) {
+				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face <= 56) {
 					this.getListOfPromises.push(piece.move(face));
-				} else if (piece === null) {
-					this.getListOfPromises.push(new Promise((resolve, reject) => {
-						setTimeout(resolve, 1000*300);
-					}));
-                } else {
-					noMove += 1;
+				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face === 56) {
+					this.getListOfPromises.push(piece.close());
+				} else if (piece.getCurrentStatus === piece.getFinalStatus) {
+					this.getListOfPromises.push(new Promise((resolve, reject) => { setTimeout(resolve, 1000*300); }));
+				} else {
+					noAvailableMoves += 1;
 				}
 			}
 
-			if (noMove === this.getNumberOfAvailablePieces) {
-				this.getListOfPromises.push(new Promise((resolve, reject) => {
-					resolve([-1, -1, []]);
-				}));
+			if (noAvailableMoves === this.getNumberOfAvailablePieces) {
+				this.getListOfPromises.push(new Promise((resolve, reject) => { resolve([-1, -1, []]); }));
 			}
 
 			//console.log(this.getListOfPieces);
@@ -385,15 +396,12 @@ const ludo = () => {
 				}
 
 				for (let piece of this.getListOfPieces) {
-					if (piece.getPieceNumber === value[0]) { continue;}
+					if (piece.getPieceNumber === value[0])	continue;
 					piece.removeClick();
 					piece.deactivate();
 				}
 
-				if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
-				else this.setNumberOfConsecutiveSixes = 0;
-
-				if (this.getNumberOfConsecutiveSixes === 0) {
+				if (this.getNumberOfConsecutiveSixes === 0) { // new rule
 					nextPlayerIndex += 1;
 					nextPlayerIndex %= numberOfPlayers;
 				}
