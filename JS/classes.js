@@ -10,9 +10,7 @@ const ludo = () => {
 		return Math.floor((Math.random() * 6) + 1);
 	}
 
-	function pieceAtIndex(boardPositionClass, pieceID, color, pieceNumber) {
-		//this needs to be hidden in the classes somehow need to think more
-
+	function cutPieces (boardPositionClass, pieceID, color, pieceNumber) {
 		let cutPieces = document.querySelectorAll("div[data-boardpositionclass = " + boardPositionClass + "]");
 		let numberOfOverlappedPieces = cutPieces.length;
 		//console.log(numberOfOverlappedPieces);
@@ -23,6 +21,21 @@ const ludo = () => {
 				,parseInt(cutPieces[index].getAttribute("data-color"))];
 		}
 
+		return cutPiecesArray;
+	}
+
+	function pieceAtIndex(boardPositionClass, pieceID, color, pieceNumber) {
+		//this needs to be hidden in the classes somehow need to think more
+
+		/*let cutPieces = document.querySelectorAll("div[data-boardpositionclass = " + boardPositionClass + "]");
+		let numberOfOverlappedPieces = cutPieces.length;
+		//console.log(numberOfOverlappedPieces);
+		let cutPiecesArray = [];
+
+		for (let index = 0; index < numberOfOverlappedPieces; index++) {
+			cutPiecesArray[index] = [parseInt(cutPieces[index].getAttribute("data-piece"))
+				,parseInt(cutPieces[index].getAttribute("data-color"))];
+		}*/
 		let line1 = '<div class="cells ' + boardPositionClass + ' white_border circle-border"></div>';
 		let line2 = '<div class="cells ' + boardPositionClass + ' ' + houseColorArray[color] + '_piece circle-clip"></div>';
 
@@ -35,7 +48,7 @@ const ludo = () => {
 
 		document.getElementById("board").appendChild(pieceElement);
 
-		return cutPiecesArray;
+		//return cutPiecesArray;
 	}
 
 	function pieceAtHouse(placeIndex, pieceID, color) {
@@ -100,8 +113,7 @@ const ludo = () => {
 
 		set setCurrentSteps(face) {
 			let temp = this.getCurrentSteps;
-			//console.log('currentSteps now = ' + this.currentSteps);
-			if (Number.isInteger(face)) { // && face >= 1 && face <= 6
+			if (Number.isInteger(face) /*&& face >= 1 && face <= 6*/) {
 				temp -= face;
 				if (temp < 0) {
 					temp += 5;
@@ -110,7 +122,6 @@ const ludo = () => {
 			} else if (face === 50) { temp = face; }
 
 			if (temp >= 0) { this.currentSteps = temp; }
-			//console.log('currentSteps later = ' + this.currentSteps);
 		}
 
 		get getInitialStatus() {
@@ -211,7 +222,7 @@ const ludo = () => {
 			this.getPiece.remove();
 			this.setVulnerability = false;
 			this.setCurrentSteps = face;
-			this.setCurrentStatus = -1;
+			this.setCurrentStatus = this.getFinalStatus;
 			this.setBoardPosition = face;
 
 			resolve([this.getPieceNumber, this.getColor, []]);
@@ -248,16 +259,17 @@ const ludo = () => {
 				let boardPositionClass = this.getPieceColor.charAt(0) + (this.getAbsolutePosition + face - 50);
 				this.setAbsolutePosition = this.getAbsolutePosition + face;
 				pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor);
-			} else if (this.getAbsolutePosition + face === 56) {
+			} /*else if (this.getAbsolutePosition + face === 56) {
 				this.setAbsolutePosition = this.getAbsolutePosition + face;
 				this.setCurrentStatus = -1;
 
 				//ekhane kaj ache anek
 				//alert(this.getPieceColor + this.getPieceID);
 				//resolve([this.getPieceNumber, this.getColor]);
-			} else {
+			}*/ else {
 				let boardPositionClass = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
-				value = pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
+				value = cutPieces(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
+				pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
 				this.setAbsolutePosition = (this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
 			}
 			
@@ -360,6 +372,8 @@ const ludo = () => {
 			if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
 			else this.setNumberOfConsecutiveSixes = 0;
 
+			console.log(this.getNumberOfConsecutiveSixes);
+
 			if (face === 6 && this.getNumberOfConsecutiveSixes === 0)	face = 5;
 
 			let noAvailableMoves = 0;
@@ -367,12 +381,13 @@ const ludo = () => {
 			for (let piece of this.getListOfPieces) {
 				if (piece.getCurrentStatus === piece.getInitialStatus && face === 6) {
 					this.getListOfPromises.push(piece.open()); // add the opening act in the promise list, returns the piece coordinate
-				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face <= 56) {
+				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face < 56) {
 					this.getListOfPromises.push(piece.move(face));
 				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face === 56) {
-					this.getListOfPromises.push(piece.close());
+					console.log("close");
+					this.getListOfPromises.push(piece.close(face));
 				} else if (piece.getCurrentStatus === piece.getFinalStatus) {
-					this.getListOfPromises.push(new Promise((resolve, reject) => { setTimeout(resolve, 1000*300); }));
+					//this.getListOfPromises.push(new Promise((resolve, reject) => { setTimeout(resolve, 1000*300); }));
 				} else {
 					noAvailableMoves += 1;
 				}
@@ -382,30 +397,61 @@ const ludo = () => {
 				this.getListOfPromises.push(new Promise((resolve, reject) => { resolve([-1, -1, []]); }));
 			}
 
-			//console.log(this.getListOfPieces);
+			console.log(this.getListOfPromises);
 
 			Promise.race(this.getListOfPromises).then((value) => {
 				let nextPlayerIndex = activePlayerIndex;
+				let closingConfirmation = false;
 
 				let color;
 				try {
 					color = value[2][0][1];
-					//ekhane formula lagbe
-				} catch (e) {
+				} catch (error) {
 					color = null;
 				}
 
-				for (let piece of this.getListOfPieces) {
-					if (piece.getPieceNumber === value[0])	continue;
+				/*for (let piece of this.getListOfPieces) {
+					if (piece.getPieceNumber === value[0]) {
+						if (piece.getCurrentStatus === piece.getFinalStatus) {
+							this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
+							closingConfirmation = true;
+							//continue;
+						}
+						continue;
+					}
+
+					if (piece.getCurrentStatus === piece.getFinalStatus) {
+						//this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
+						//closingConfirmation = true;
+						continue;
+					}
+
 					piece.removeClick();
 					piece.deactivate();
+				}*/
+
+				for (let piece of this.getListOfPieces) {
+					try {
+						piece.removeClick(); piece.deactivate();
+					} catch (error) {
+						if (piece.getCurrentStatus === piece.getFinalStatus && piece.getPieceNumber === value[0]) {
+							this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
+							this.setNumberOfConsecutiveSixes = 0;
+							closingConfirmation = true;
+						}
+					}
 				}
 
-				if (this.getNumberOfConsecutiveSixes === 0) { // new rule
+				this.setListOfPromises = [];
+
+				if (closingConfirmation || face === 6) {
+					console.log(closingConfirmation + " : " + face + " : " + nextPlayerIndex);
+
+				} else {
 					nextPlayerIndex += 1;
 					nextPlayerIndex %= numberOfPlayers;
+					console.log(closingConfirmation + " : " + face + " : " + nextPlayerIndex);
 				}
-				this.setListOfPromises = [];
 
 				resolve([nextPlayerIndex, color, value[2]]);
 			});
