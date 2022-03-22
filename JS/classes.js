@@ -36,6 +36,7 @@ const ludo = () => {
 			cutPiecesArray[index] = [parseInt(cutPieces[index].getAttribute("data-piece"))
 				,parseInt(cutPieces[index].getAttribute("data-color"))];
 		}*/
+
 		let line1 = '<div class="cells ' + boardPositionClass + ' white_border circle-border"></div>';
 		let line2 = '<div class="cells ' + boardPositionClass + ' ' + houseColorArray[color] + '_piece circle-clip"></div>';
 
@@ -47,12 +48,12 @@ const ludo = () => {
 		pieceElement.innerHTML = line1 + line2;
 
 		document.getElementById("board").appendChild(pieceElement);
-
-		//return cutPiecesArray;
 	}
 
 	function pieceAtHouse(placeIndex, pieceID, color) {
 		let house = ["one", "two", "three", "four"];
+
+		let squareClass = "div.square." + "square-" + house[placeIndex] + "." + houseColorArray[color];
 
 		let line1 = '<div class="square square-' + house[placeIndex] + ' black_grey circle-border"></div>';
 		let line2 = '<div class="square square-' + house[placeIndex] + ' ' + houseColorArray[color] + '_piece circle-clip"></div>';
@@ -61,7 +62,7 @@ const ludo = () => {
 		pieceElement.setAttribute("id", pieceID);
 		pieceElement.innerHTML = line1 + line2;
 
-		return pieceElement;
+		document.querySelectorAll(squareClass)[0].after(pieceElement);
 	}
 
 
@@ -77,6 +78,8 @@ const ludo = () => {
 			this.pieceID = this.pieceColor + "Piece" + this.pieceNumber;
 			this.handler = null;
 			this.absolutePosition = -1;
+			pieceAtHouse(this.pieceNumber, this.pieceID, this.color);
+			document.getElementById(this.pieceID).hidden = true;
 		}
 
 		set setHandler(handler) {
@@ -100,7 +103,7 @@ const ludo = () => {
 		}
 
 		set setVisibility(state) {
-			document.getElementById(this.getPieceID).hidden = state;
+			document.getElementById(this.getPieceID).hidden = !state;
 		}
 
 		get getTotalSteps() {
@@ -169,6 +172,15 @@ const ludo = () => {
 			return document.getElementById(this.getPieceID);
 		}
 
+		set setAbsolutePosition(absolutePosition) {
+			this.absolutePosition = absolutePosition; //(this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
+		}
+
+		get getAbsolutePosition() {
+			return this.absolutePosition;
+		}
+
+
 		activate() {
 			this.getPiece.children[0].classList.remove("circle-border");
 			this.getPiece.children[0].classList.add("circle-border-active");
@@ -205,9 +217,9 @@ const ludo = () => {
 			this.setBoardPosition = 0;
 
 			let boardPosition = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
-			let cutPieceInfo = pieceAtIndex(boardPosition, this.getPieceID, this.getColor, this.getPieceNumber);
+			/*let cutPieceInfo = */pieceAtIndex(boardPosition, this.getPieceID, this.getColor, this.getPieceNumber);
 
-			resolve([this.getPieceNumber, this.getColor, cutPieceInfo]);
+			resolve([this.getPieceNumber, this.getColor, []]);
 		}
 
 		close(face) { //this returns a promise a being clicked on a piece on the move, and it moves forward
@@ -238,14 +250,6 @@ const ludo = () => {
 			});
 		}
 
-		set setAbsolutePosition(absolutePosition) {
-			this.absolutePosition = absolutePosition; //(this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
-		}
-
-		get getAbsolutePosition() {
-			return this.absolutePosition;
-		}
-
 		movingListener(resolve, face) {
 			this.getPiece.remove();
 			this.setVulnerability = !(!this.getBoardPosition % 13);
@@ -270,9 +274,9 @@ const ludo = () => {
 				let boardPositionClass = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
 				value = cutPieces(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
 				pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
-				this.setAbsolutePosition = (this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
+				this.setAbsolutePosition = (this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps; // this calculation depends on the calculation of boardPosition outside the if-else section
 			}
-			
+
 			resolve([this.getPieceNumber, this.getColor, value]);
 		}
 
@@ -297,10 +301,19 @@ const ludo = () => {
 			this.consecutiveSixes = 0;
 			this.numberOfAvailablePieces = 4;
 
-			for (let i = 0; i < this.getNumberOfAvailablePieces; i++) {
-				let piece = new Piece(color, i);
+			for (let pieceNumber = 0; pieceNumber < this.getNumberOfAvailablePieces; pieceNumber++) {
+				let piece = new Piece(color, pieceNumber);
 				this.listOfPieces.push(piece);
 			}
+		}
+
+		replacePiece(color, pieceNumber) {
+			if (!this.getListOfPieces[pieceNumber].getVulnerability) return;
+			this.getListOfPieces[pieceNumber].getPiece.remove();
+
+			let piece = new Piece(color, pieceNumber);
+			piece.setVisibility = true;
+			this.getListOfPieces[pieceNumber] = piece;
 		}
 
 		get getNumberOfAvailablePieces () {
@@ -332,9 +345,7 @@ const ludo = () => {
 		}
 
 		set setVisibility(state) {
-			for (let piece of this.getListOfPieces) {
-				piece.setVisibility = !state;
-			}
+			for (let piece of this.getListOfPieces)	piece.setVisibility = state;
 		}
 
 		get getPlayerButton() {
@@ -372,7 +383,7 @@ const ludo = () => {
 			if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
 			else this.setNumberOfConsecutiveSixes = 0;
 
-			console.log(this.getNumberOfConsecutiveSixes);
+			//console.log(this.getNumberOfConsecutiveSixes);
 
 			if (face === 6 && this.getNumberOfConsecutiveSixes === 0)	face = 5;
 
@@ -382,9 +393,11 @@ const ludo = () => {
 				if (piece.getCurrentStatus === piece.getInitialStatus && face === 6) {
 					this.getListOfPromises.push(piece.open()); // add the opening act in the promise list, returns the piece coordinate
 				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face < 56) {
+					//console.log(piece.getAbsolutePosition + " : " + piece.getBoardPosition);
 					this.getListOfPromises.push(piece.move(face));
+					//console.log(piece.getAbsolutePosition + " : " + piece.getBoardPosition);
 				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face === 56) {
-					console.log("close");
+					//console.log("close");
 					this.getListOfPromises.push(piece.close(face));
 				} else if (piece.getCurrentStatus === piece.getFinalStatus) {
 					//this.getListOfPromises.push(new Promise((resolve, reject) => { setTimeout(resolve, 1000*300); }));
@@ -397,7 +410,7 @@ const ludo = () => {
 				this.getListOfPromises.push(new Promise((resolve, reject) => { resolve([-1, -1, []]); }));
 			}
 
-			console.log(this.getListOfPromises);
+			//console.log(this.getListOfPromises);
 
 			Promise.race(this.getListOfPromises).then((value) => {
 				let nextPlayerIndex = activePlayerIndex;
@@ -444,13 +457,19 @@ const ludo = () => {
 
 				this.setListOfPromises = [];
 
-				if (closingConfirmation || face === 6) {
+				/*if (closingConfirmation || face === 6) {
 					console.log(closingConfirmation + " : " + face + " : " + nextPlayerIndex);
 
 				} else {
 					nextPlayerIndex += 1;
 					nextPlayerIndex %= numberOfPlayers;
 					console.log(closingConfirmation + " : " + face + " : " + nextPlayerIndex);
+				}*/
+
+				if(!(closingConfirmation || face === 6)) {
+					nextPlayerIndex += 1;
+					nextPlayerIndex %= numberOfPlayers;
+					//console.log(closingConfirmation + " : " + face + " : " + nextPlayerIndex);
 				}
 
 				resolve([nextPlayerIndex, color, value[2]]);
@@ -510,7 +529,7 @@ const ludo = () => {
 				let nextActivePlayerInfo = await this.getActivePlayer.rollDiceNew(this.getActivePlayerIndex, this.getNumberOfPlayers);
 				// waits for the player click on a piece of choice
 
-				console.log(nextActivePlayerInfo);
+				//console.log(nextActivePlayerInfo);
 
 				this.setActivePlayerIndex = nextActivePlayerInfo[0];
 				let listOfCutPieces = nextActivePlayerInfo[2]; //list of cut-able pieces by the current player
@@ -518,7 +537,10 @@ const ludo = () => {
 
 				for (let player of this.getPlayerArray) {
 					if (player.getColor !== cutPieceColor) continue;
-					for (let piece of listOfCutPieces) 	player.getListOfPieces[piece[0]].cutPiece();
+					for (let piece of listOfCutPieces) {
+						player.replacePiece(cutPieceColor, piece[0]);
+						//player.getListOfPieces[piece[0]].cutPiece();
+					}
 					break;
 				}
 
