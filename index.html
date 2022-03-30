@@ -9,29 +9,10 @@
 </head>
 
 <body class="darkslategrey" style="color: whitesmoke">
-
-    <div class="game-debug white-game">
-        <div class="house green">
-            <input id="greenButton" type="button" value="Green Player" style="height: 50px; color: #ffffff; font-weight: bold; font-size: 12px; background-color: #ff00ff; padding: 5px;">
-            <input type="text" size="7">
-        </div>
-        <div class="house yellow" style="right: 0">
-            <input id="yellowButton" type="button" value="Yellow Player" style="height: 50px; color: #ffffff; font-weight: bold; font-size: 12px; background-color: #ff00ff; padding: 5px">
-            <input type="text" size="7">
-        </div>
-        <div class="house red" style="bottom: 0">
-            <input id="redButton" type="button" value="Red Player" style="height: 50px; color: #ffffff; font-weight: bold; font-size: 12px; background-color: #ff00ff; padding: 5px">
-            <input type="text" size="7">
-        </div>
-        <div class="house blue" style="bottom: 0;right: 0">
-            <input id="blueButton" type="button" value="Blue Player" style="height: 50px; color: #ffffff; font-weight: bold; font-size: 12px; background-color: #ff00ff; padding: 5px">
-            <input type="text" size="7">
-        </div>
-    </div>
-
-    <div id="board" class="black_grey game" style="display: none;">
+    <div id="board" class="black_grey game">
         <!-- Green House -->
         <div class="house green" id="green" style="border: 1px solid black;">
+            <label for="greenInput"></label><input type="text" name="green" size=5 id="greenInput">
             <div class="box" style="border: 1px solid black;">
                 <div class="square square-one green"></div>
                 <div class="square square-two green"></div>
@@ -42,6 +23,7 @@
 
         <!-- Yellow House -->
         <div class="house yellow" id="yellow" style="right: 0;border: 1px solid black;">
+            <label for="yellowInput"></label><input type="text" name="green" size=5 id="yellowInput">
             <div class="box" style="border: 1px solid black;">
                 <div class="square square-one yellow"></div>
                 <div class="square square-two yellow"></div>
@@ -52,6 +34,7 @@
 
         <!-- Blue House -->
         <div class="house blue" id="blue" style="bottom: 0;right: 0;border: 1px solid black;">
+            <label for="blueInput"></label><input type="text" name="green" size=5 id="blueInput">
             <div class="box" style="border: 1px solid black;">
                 <div class="square square-one blue"></div>
                 <div class="square square-two blue"></div>
@@ -62,6 +45,7 @@
 
         <!-- Red House -->
         <div class="house red" id="red" style="bottom: 0;border: 1px solid black;">
+            <label for="redInput"></label><input type="text" name="green" size=5 id="redInput">
             <div class="box" style="border: 1px solid black;">
                 <div class="square square-one red"></div>
                 <div class="square square-two red"></div>
@@ -134,32 +118,177 @@
         <div class="cells C51">51</div>
 
         <!-- Green Home -->
-        <div class="cells green g5" style=""></div>
-        <div class="cells green g4" style=""></div>
-        <div class="cells green g3" style=""></div>
-        <div class="cells green g2" style=""></div>
-        <div class="cells green g1" style=""></div>
+        <div class="cells green g5"></div>
+        <div class="cells green g4"></div>
+        <div class="cells green g3"></div>
+        <div class="cells green g2"></div>
+        <div class="cells green g1"></div>
 
         <!-- Yellow Home -->
-        <div class="cells yellow y1" style=""></div>
-        <div class="cells yellow y2" style=""></div>
-        <div class="cells yellow y3" style=""></div>
-        <div class="cells yellow y4" style=""></div>
-        <div class="cells yellow y5" style=""></div>
+        <div class="cells yellow y1"></div>
+        <div class="cells yellow y2"></div>
+        <div class="cells yellow y3"></div>
+        <div class="cells yellow y4"></div>
+        <div class="cells yellow y5"></div>
 
         <!-- Blue Home -->
-        <div class="cells blue b1" style=""></div>
-        <div class="cells blue b2" style=""></div>
-        <div class="cells blue b3" style=""></div>
-        <div class="cells blue b4" style=""></div>
-        <div class="cells blue b5" style=""></div>
+        <div class="cells blue b1"></div>
+        <div class="cells blue b2"></div>
+        <div class="cells blue b3"></div>
+        <div class="cells blue b4"></div>
+        <div class="cells blue b5"></div>
 
         <!-- Red Home -->
-        <div class="cells red r1" style=""></div>
-        <div class="cells red r2" style=""></div>
-        <div class="cells red r3" style=""></div>
-        <div class="cells red r4" style=""></div>
-        <div class="cells red r5" style=""></div>
+        <div class="cells red r1"></div>
+        <div class="cells red r2"></div>
+        <div class="cells red r3"></div>
+        <div class="cells red r4"></div>
+        <div class="cells red r5"></div>
+
+        <!-- The Dice -->
+        <div id="greenButton" class="dice dice-one">
+            <div class='side side-green one'>
+                <div class="dot one-1"></div>
+            </div>
+            <div class='side side-green-grey two'>
+                <div class="dot two-1"></div>
+                <div class="dot two-2"></div>
+            </div>
+            <div class='side side-green-grey three'>
+                <div class="dot three-1"></div>
+                <div class="dot three-2"></div>
+                <div class="dot three-3"></div>
+            </div>
+            <div class='side side-green-grey four'>
+                <div class="dot four-1"></div>
+                <div class="dot four-2"></div>
+                <div class="dot four-3"></div>
+                <div class="dot four-4"></div>
+            </div>
+            <div class='side side-green-grey five'>
+                <div class="dot five-1"></div>
+                <div class="dot five-2"></div>
+                <div class="dot five-3"></div>
+                <div class="dot five-4"></div>
+                <div class="dot five-5"></div>
+            </div>
+            <div class='side side-green-grey six'>
+                <div class="dot six-1"></div>
+                <div class="dot six-2"></div>
+                <div class="dot six-3"></div>
+                <div class="dot six-4"></div>
+                <div class="dot six-5"></div>
+                <div class="dot six-6"></div>
+            </div>
+        </div>
+
+        <div id="yellowButton" class="dice dice-two">
+            <div class='side side-yellow-grey one'>
+                <div class="dot one-1"></div>
+            </div>
+            <div class='side side-yellow-grey two'>
+                <div class="dot two-1"></div>
+                <div class="dot two-2"></div>
+            </div>
+            <div class='side side-yellow-grey three'>
+                <div class="dot three-1"></div>
+                <div class="dot three-2"></div>
+                <div class="dot three-3"></div>
+            </div>
+            <div class='side side-yellow-grey four'>
+                <div class="dot four-1"></div>
+                <div class="dot four-2"></div>
+                <div class="dot four-3"></div>
+                <div class="dot four-4"></div>
+            </div>
+            <div class='side side-yellow-grey five'>
+                <div class="dot five-1"></div>
+                <div class="dot five-2"></div>
+                <div class="dot five-3"></div>
+                <div class="dot five-4"></div>
+                <div class="dot five-5"></div>
+            </div>
+            <div class='side side-yellow-grey six'>
+                <div class="dot six-1"></div>
+                <div class="dot six-2"></div>
+                <div class="dot six-3"></div>
+                <div class="dot six-4"></div>
+                <div class="dot six-5"></div>
+                <div class="dot six-6"></div>
+            </div>
+        </div>
+
+        <div id="blueButton" class="dice dice-three">
+            <div class='side side-blue-grey one'>
+                <div class="dot one-1"></div>
+            </div>
+            <div class='side side-blue-grey two'>
+                <div class="dot two-1"></div>
+                <div class="dot two-2"></div>
+            </div>
+            <div class='side side-blue-grey three'>
+                <div class="dot three-1"></div>
+                <div class="dot three-2"></div>
+                <div class="dot three-3"></div>
+            </div>
+            <div class='side side-blue-grey four'>
+                <div class="dot four-1"></div>
+                <div class="dot four-2"></div>
+                <div class="dot four-3"></div>
+                <div class="dot four-4"></div>
+            </div>
+            <div class='side side-blue-grey five'>
+                <div class="dot five-1"></div>
+                <div class="dot five-2"></div>
+                <div class="dot five-3"></div>
+                <div class="dot five-4"></div>
+                <div class="dot five-5"></div>
+            </div>
+            <div class='side side-blue-grey six'>
+                <div class="dot six-1"></div>
+                <div class="dot six-2"></div>
+                <div class="dot six-3"></div>
+                <div class="dot six-4"></div>
+                <div class="dot six-5"></div>
+                <div class="dot six-6"></div>
+            </div>
+        </div>
+
+        <div id="redButton" class="dice dice-four">
+            <div class='side side-red-grey one'>
+                <div class="dot one-1"></div>
+            </div>
+            <div class='side side-red-grey two'>
+                <div class="dot two-1"></div>
+                <div class="dot two-2"></div>
+            </div>
+            <div class='side side-red-grey three'>
+                <div class="dot three-1"></div>
+                <div class="dot three-2"></div>
+                <div class="dot three-3"></div>
+            </div>
+            <div class='side side-red-grey four'>
+                <div class="dot four-1"></div>
+                <div class="dot four-2"></div>
+                <div class="dot four-3"></div>
+                <div class="dot four-4"></div>
+            </div>
+            <div class='side side-red-grey five'>
+                <div class="dot five-1"></div>
+                <div class="dot five-2"></div>
+                <div class="dot five-3"></div>
+                <div class="dot five-4"></div>
+                <div class="dot five-5"></div>
+            </div>
+            <div class='side side-red-grey six'>
+                <div class="dot six-1"></div>
+                <div class="dot six-2"></div>
+                <div class="dot six-3"></div>
+                <div class="dot six-4"></div>
+                <div class="dot six-5"></div>
+                <div class="dot six-6"></div>
+            </div>
+        </div>
 
         <!-- End -->
     </div>
