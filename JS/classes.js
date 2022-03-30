@@ -273,6 +273,10 @@ const ludo = () => {
 			}
 		}
 
+		get getColorName () {
+			return houseColorArray[this.getColor];
+		}
+
 		get getNumberOfAvailablePieces () {
 			return this.numberOfAvailablePieces;
 		}
@@ -302,6 +306,7 @@ const ludo = () => {
 		}
 
 		set setVisibility(state) {
+			this.visibility = state;
 			for (let piece of this.getListOfPieces)	piece.setVisibility = state;
 		}
 
@@ -338,17 +343,40 @@ const ludo = () => {
 			this.getListOfPieces[pieceNumber] = piece;
 		}
 
-		listenerMethod(resolve, activePlayerIndex, numberOfPlayers) {
-
+		listenerMethod(resolve) {
 			this.getPlayerButton.removeEventListener("click", this.getHandler);
 
-			let face = rollDie();
-			face = parseInt(this.getPlayerButton.nextElementSibling.value);
+			/*let face = rollDie();
+			face = parseInt(this.getPlayerButton.nextElementSibling.value);*/
+
+			let button = this.getPlayerButton;
+
+			let className = "side-" + this.getColorName;
+			for (let c of button.children) c.classList.remove(className);
+			className = "side-" + this.getColorName + "-grey";
+			for (let c of button.children) c.classList.add(className);
+
+			function rollDice(button, roll) {
+				for (let i = 1; i <= 6; i++) {
+					button.classList.remove('show-' + i);
+					if (roll === i) {
+						button.classList.add('show-' + i);
+						console.log("show-" + i);
+					}
+				}
+			}
+
+			let face = Math.floor((Math.random() * 6) + 1);
+
+			//setTimeout("", 1000);
 
 			if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
 			else this.setNumberOfConsecutiveSixes = 0;
-
 			if (face === 6 && this.getNumberOfConsecutiveSixes === 0)	face = 5;
+
+			rollDice(button, face);
+
+			//setTimeout(()=>{console.log("time out")}, 20000);
 
 			let noAvailableMoves = 0;
 
@@ -370,7 +398,7 @@ const ludo = () => {
 			}
 
 			Promise.race(this.getListOfPromises).then((value) => {
-				let nextPlayerIndex = activePlayerIndex;
+				let nextPlayerIndex = 0;
 				let closingConfirmation = false;
 
 				let color;
@@ -379,8 +407,6 @@ const ludo = () => {
 				} catch (error) {
 					color = null;
 				}
-
-				console.log(value[2]);
 
 				for (let piece of this.getListOfPieces) {
 					try {
@@ -398,91 +424,69 @@ const ludo = () => {
 				this.setListOfPromises = [];
 
 				if(!(closingConfirmation || face === 6)) {
-					nextPlayerIndex += 1;
-					nextPlayerIndex %= numberOfPlayers;
+					nextPlayerIndex = 1;
 				}
 
 				resolve([nextPlayerIndex, color, value[2]]);
 			});
 		}
 
-		rollDiceNew(activePlayerIndex, numberOfPlayers) {
+		rollDiceNew() {
 			return new Promise((resolve, reject) => {
-				const listenerFunction = this.listenerMethod.bind(this, resolve, activePlayerIndex, numberOfPlayers);
+				const listenerFunction = this.listenerMethod.bind(this, resolve);
 				this.setHandler = listenerFunction;
+				//alert(this.getPlayerButton);
+				//this.getPlayerButton.style.backgroundColor = "grey";
+
+				let className = "side-" + this.getColorName + "-grey";
+				for (let c of this.getPlayerButton.children) c.classList.remove(className);
+				className = "side-" + this.getColorName;
+				for (let c of this.getPlayerButton.children) c.classList.add(className);
+				console.log(this.getPlayerButton);
 				this.getPlayerButton.addEventListener("click", listenerFunction);
 			});
 		}
 	}
 
+
 	class Board {
-		constructor(playerCount) {
-			this.colorArray = [null, [0], [0, 2], [0, 1, 2], [0, 1, 2, 3]];
+		constructor(playerCount, playerVirtualCount) {
 			const playerCombinationList = {
-				2:[0,2], 7:[1,3],
-				3:[0,1,2], 12:[1,2,3], 5:[2,3,0], 4:[3,0,1],
+				2:[0,null,2,null], 7:[null,1,null,3],
+				3:[0,1,2,null], 12:[null,1,2,3], 5:[0,null,2,3], 4:[0,1,null,3],
 				6:[0,1,2,3]
 			};
 
+			this.colorArray = playerCombinationList[playerVirtualCount];
 			this.playerList = [];
 			this.numberOfPlayers = playerCount;
 			this.activePlayer = null;
 			this.activePlayerIndex = 0;
 
-			for (let iterate = 0; iterate < this.getNumberOfPlayers; iterate++) {
-				let player = new Player(this.getColorArray[playerCount][iterate]);
+			for (let iterate of this.colorArray) {
+				if (iterate === null) {
+					this.playerList.push(null);
+					continue;
+				}
+
+				let player = new Player(iterate);
 				player.setVisibility = true;
-				this.getPlayerArray.push(player);
+				this.playerList.push(player);
 			}
+
+			document.getElementById("board").style.display = "flex";
 		}
 
 		get getActivePlayerIndex() {
 			return this.activePlayerIndex;
 		}
 
-		set setActivePlayerIndex(index) {
-			this.activePlayerIndex = index;
-		}
-
 		get getColorArray() {
 			return this.colorArray;
 		}
 
-		set setActivePlayer(activePlayer) {
-			this.activePlayer = activePlayer;
-		}
-
 		get getActivePlayer() {
 			return this.activePlayer;
-		}
-
-		async play() {
-			let playerCount = this.getNumberOfPlayers;
-			this.setActivePlayer = this.getPlayerArray[0];
-
-			while (playerCount >= 1) {
-				let nextActivePlayerInfo = await this.getActivePlayer.rollDiceNew(this.getActivePlayerIndex, this.getNumberOfPlayers);
-
-				this.setActivePlayerIndex = nextActivePlayerInfo[0];
-				let listOfCutPieces = nextActivePlayerInfo[2];
-				let cutPieceColor = nextActivePlayerInfo[1];
-
-				for (let player of this.getPlayerArray) {
-					if (player.getColor !== cutPieceColor) continue;
-					for (let piece of listOfCutPieces) {
-						player.replacePiece(cutPieceColor, piece[0]);
-					}
-					break;
-				}
-
-				if (this.getActivePlayer.getNumberOfAvailablePieces === 0) {
-
-				}
-
-				this.setActivePlayer = this.getPlayerArray[this.getActivePlayerIndex];
-			}
-
-			return 0;
 		}
 
 		get getNumberOfPlayers() {
@@ -492,10 +496,90 @@ const ludo = () => {
 		get getPlayerArray() {
 			return this.playerList;
 		}
+
+		set setActivePlayer(activePlayer) {
+			this.activePlayer = activePlayer;
+		}
+
+		set setActivePlayerIndex(index) {
+			this.activePlayerIndex = index;
+		}
+
+		set setNumberOfPlayers(numberOfPlayers) {
+			this.numberOfPlayers = numberOfPlayers;
+		}
+
+		async play() {
+			let activePlayerIndex = 0;
+			this.setActivePlayer = this.getPlayerArray[activePlayerIndex];
+
+			while (this.getNumberOfPlayers >= 1) {
+				try {
+					let nextActivePlayerInfo = await this.getActivePlayer.rollDiceNew();
+					let listOfCutPieces = nextActivePlayerInfo[2];
+					let cutPieceColor = nextActivePlayerInfo[1];
+
+					for (let player of this.getPlayerArray) {
+						if (player === null || player.getColor !== cutPieceColor)	continue;
+						for (let piece of listOfCutPieces)	player.replacePiece(cutPieceColor, piece[0]);
+						break;
+					}
+
+					if (this.getActivePlayer.getNumberOfAvailablePieces === 0) {
+						this.getPlayerArray[activePlayerIndex] = null;
+						this.setNumberOfPlayers = this.getNumberOfPlayers - 1;
+					}
+
+					activePlayerIndex = (activePlayerIndex + nextActivePlayerInfo[0]) % 4;
+				} catch (e) {
+					activePlayerIndex = (activePlayerIndex + 1) % 4;
+				} finally {
+					console.log("active player index :" + activePlayerIndex);
+					this.setActivePlayer = this.getPlayerArray[activePlayerIndex];
+				}
+			}
+			return 0;
+		}
 	}
 
-	let testBoard = new Board(2);
+	let testBoard = new Board(2,2);
 	testBoard.play().then((value) => { });
+
+	/*let elDiceOne       = document.getElementById('dice1');
+	let elDiceTwo       = document.getElementById('dice2');
+	let elDiceThree       = document.getElementById('dice3');
+	let elDiceFour       = document.getElementById('dice4');
+	let elComeOut       = document.getElementById('roll');
+
+	let elDice = {One:elDiceOne, Two:elDiceTwo, Three:elDiceThree, Four:elDiceFour};
+
+	/!*elDiceOne.onclick   = function () {rollDice("One");};
+	elDiceTwo.onclick   = function () {rollDice("Two");};
+	elDiceThree.onclick   = function () {rollDice("Three");};*!/
+
+	const oneListener = rollDice.bind(this, "One");
+	elDice["One"].addEventListener("click", oneListener);
+
+	const twoListener = rollDice.bind(this, "Two");
+	elDice["Two"].addEventListener("click", twoListener);
+
+	const threeListener = rollDice.bind(this, "Three");
+	elDice["Three"].addEventListener("click", threeListener);
+
+	const fourListener = rollDice.bind(this, "Four");
+	elDice["Four"].addEventListener("click", fourListener);
+
+	function rollDice(num) {
+		let diceOne = Math.floor((Math.random() * 6) + 1);
+		console.log(num);
+		for (let i = 1; i <= 6; i++) {
+			elDice[num].classList.remove('show-' + i);
+			if (diceOne === i) {
+				elDice[num].classList.add('show-' + i);
+			}
+		}
+	}*/
+
 };
 
 window.addEventListener("load", ludo);
