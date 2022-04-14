@@ -6,15 +6,21 @@ const ludo = () => {
 		return Math.floor((Math.random() * 6) + 1);
 	}
 
-	function cutPieces (boardPositionClass, pieceID, color, pieceNumber) {
+	function cutPieces (boardPositionClass, vulnerability, color) {
+		// console.log(vulnerability);
+		if (!vulnerability) return [];
+
 		let cutPieces = document.querySelectorAll("div[data-boardpositionclass = " + boardPositionClass + "]");
 		let numberOfOverlappedPieces = cutPieces.length;
 		let cutPiecesArray = [];
 
 		for (let index = 0; index < numberOfOverlappedPieces; index++) {
+			if (color === parseInt(cutPieces[index].getAttribute("data-color"))) break;
 			cutPiecesArray[index] = [parseInt(cutPieces[index].getAttribute("data-piece")),
 									parseInt(cutPieces[index].getAttribute("data-color"))];
 		}
+
+		//console.log("length : " + cutPiecesArray.length);
 
 		return cutPiecesArray;
 	}
@@ -23,6 +29,7 @@ const ludo = () => {
 		let line1 = '<div class="cells ' + boardPositionClass + ' white_border circle-border"></div>';
 		let line2 = '<div class="cells ' + boardPositionClass + ' ' + houseColorArray[color] + '_piece circle-clip"></div>';
 		let pieceElement = document.createElement("div");
+
 		pieceElement.setAttribute("id", pieceID);
 		pieceElement.setAttribute("data-piece", pieceNumber);
 		pieceElement.setAttribute("data-color", color);
@@ -232,12 +239,14 @@ const ludo = () => {
 			});
 		}
 
-		movingListener(resolve, face) {
+		/*movingListener(resolve, face) {
 			this.getPiece.remove();
 			this.setVulnerability = !(!this.getBoardPosition % 13);
 			this.setCurrentSteps = face;
 			this.setCurrentStatus = 1;
 			this.setBoardPosition = face;
+
+
 
 			let value = [];
 
@@ -253,6 +262,46 @@ const ludo = () => {
 			}
 
 			resolve([this.getPieceNumber, this.getColor, value]);
+		}*/
+
+		movingListener(resolve, face) {
+			this.setCurrentSteps = face;
+			this.setCurrentStatus = 1;
+			let boardPositionClass;
+			let boardPositionTemp = this.getBoardPosition;
+			this.setBoardPosition = face;
+			this.setVulnerability = Boolean(this.getBoardPosition % 13);
+			let value1 = [];
+
+			if (this.getAbsolutePosition + face > 50 && this.getAbsolutePosition + face < 56) {
+				boardPositionClass = this.getPieceColor.charAt(0) + (this.getAbsolutePosition + face - 50);
+				this.setAbsolutePosition = this.getAbsolutePosition + face;
+				pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
+			} else {
+				boardPositionClass = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
+				value1 = cutPieces(boardPositionClass, this.getVulnerability, this.getColor);
+				// pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
+				this.setAbsolutePosition = (this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
+			}
+
+			let pieceHTML = this.getPiece;
+			let timeOut = 0;
+
+			for (let step = 0; step < face; step++) {
+				setTimeout(() => {
+					let boardPositionClass = (this.getBoardPosition < 10) ? "C0" + boardPositionTemp : "C" + boardPositionTemp;
+					boardPositionTemp += 1;
+					let newBoardPositionClass = (this.getBoardPosition < 10) ? "C0" + boardPositionTemp : "C" + boardPositionTemp;
+
+					console.log(boardPositionClass + " : " + newBoardPositionClass);
+					pieceHTML.children[0].classList.replace(boardPositionClass, newBoardPositionClass);
+					pieceHTML.children[1].classList.replace(boardPositionClass, newBoardPositionClass);
+				}, timeOut);
+
+				timeOut += 500;
+			}
+			//this.getPiece.remove();
+			resolve([this.getPieceNumber, this.getColor, value1]);
 		}
 	}
 
@@ -346,29 +395,21 @@ const ludo = () => {
 		listenerMethod(resolve) {
 			this.getPlayerButton.removeEventListener("click", this.getHandler);
 
-			/*let face = rollDie();
-			face = parseInt(this.getPlayerButton.nextElementSibling.value);*/
-
 			let button = this.getPlayerButton;
 
-			let className = "side-" + this.getColorName;
-			for (let c of button.children) c.classList.remove(className);
-			className = "side-" + this.getColorName + "-grey";
-			for (let c of button.children) c.classList.add(className);
+			for (let c of button.children) c.classList.remove("side-" + this.getColorName);
+			for (let c of button.children) c.classList.add("side-" + this.getColorName + "-grey");
 
 			function rollDice(button, roll) {
-				for (let i = 1; i <= 6; i++) {
-					button.classList.remove('show-' + i);
-					if (roll === i) {
-						button.classList.add('show-' + i);
-						console.log("show-" + i);
+				for (let side = 1; side <= 6; side++) {
+					button.classList.remove('show-' + side);
+					if (roll === side) {
+						button.classList.add('show-' + side);
 					}
 				}
 			}
 
 			let face = Math.floor((Math.random() * 6) + 1);
-
-			//setTimeout("", 1000);
 
 			if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
 			else this.setNumberOfConsecutiveSixes = 0;
@@ -376,7 +417,7 @@ const ludo = () => {
 
 			rollDice(button, face);
 
-			//setTimeout(()=>{console.log("time out")}, 20000);
+			face = parseInt(document.getElementById(this.getColorName + "Input").value);
 
 			let noAvailableMoves = 0;
 
@@ -435,14 +476,10 @@ const ludo = () => {
 			return new Promise((resolve, reject) => {
 				const listenerFunction = this.listenerMethod.bind(this, resolve);
 				this.setHandler = listenerFunction;
-				//alert(this.getPlayerButton);
-				//this.getPlayerButton.style.backgroundColor = "grey";
 
-				let className = "side-" + this.getColorName + "-grey";
-				for (let c of this.getPlayerButton.children) c.classList.remove(className);
-				className = "side-" + this.getColorName;
-				for (let c of this.getPlayerButton.children) c.classList.add(className);
-				console.log(this.getPlayerButton);
+				for (let child of this.getPlayerButton.children) child.classList.remove("side-" + this.getColorName + "-grey");
+				for (let child of this.getPlayerButton.children) child.classList.add("side-" + this.getColorName);
+
 				this.getPlayerButton.addEventListener("click", listenerFunction);
 			});
 		}
@@ -516,12 +553,14 @@ const ludo = () => {
 			while (this.getNumberOfPlayers >= 1) {
 				try {
 					let nextActivePlayerInfo = await this.getActivePlayer.rollDiceNew();
-					let listOfCutPieces = nextActivePlayerInfo[2];
+					let playerOffset = nextActivePlayerInfo[0];
 					let cutPieceColor = nextActivePlayerInfo[1];
+					let listOfCutPieces = nextActivePlayerInfo[2];
 
 					for (let player of this.getPlayerArray) {
 						if (player === null || player.getColor !== cutPieceColor)	continue;
 						for (let piece of listOfCutPieces)	player.replacePiece(cutPieceColor, piece[0]);
+						playerOffset = 0;
 						break;
 					}
 
@@ -530,11 +569,10 @@ const ludo = () => {
 						this.setNumberOfPlayers = this.getNumberOfPlayers - 1;
 					}
 
-					activePlayerIndex = (activePlayerIndex + nextActivePlayerInfo[0]) % 4;
+					activePlayerIndex = (activePlayerIndex + playerOffset) % 4;
 				} catch (e) {
 					activePlayerIndex = (activePlayerIndex + 1) % 4;
 				} finally {
-					console.log("active player index :" + activePlayerIndex);
 					this.setActivePlayer = this.getPlayerArray[activePlayerIndex];
 				}
 			}
@@ -544,42 +582,6 @@ const ludo = () => {
 
 	let testBoard = new Board(2,2);
 	testBoard.play().then((value) => { });
-
-	/*let elDiceOne       = document.getElementById('dice1');
-	let elDiceTwo       = document.getElementById('dice2');
-	let elDiceThree       = document.getElementById('dice3');
-	let elDiceFour       = document.getElementById('dice4');
-	let elComeOut       = document.getElementById('roll');
-
-	let elDice = {One:elDiceOne, Two:elDiceTwo, Three:elDiceThree, Four:elDiceFour};
-
-	/!*elDiceOne.onclick   = function () {rollDice("One");};
-	elDiceTwo.onclick   = function () {rollDice("Two");};
-	elDiceThree.onclick   = function () {rollDice("Three");};*!/
-
-	const oneListener = rollDice.bind(this, "One");
-	elDice["One"].addEventListener("click", oneListener);
-
-	const twoListener = rollDice.bind(this, "Two");
-	elDice["Two"].addEventListener("click", twoListener);
-
-	const threeListener = rollDice.bind(this, "Three");
-	elDice["Three"].addEventListener("click", threeListener);
-
-	const fourListener = rollDice.bind(this, "Four");
-	elDice["Four"].addEventListener("click", fourListener);
-
-	function rollDice(num) {
-		let diceOne = Math.floor((Math.random() * 6) + 1);
-		console.log(num);
-		for (let i = 1; i <= 6; i++) {
-			elDice[num].classList.remove('show-' + i);
-			if (diceOne === i) {
-				elDice[num].classList.add('show-' + i);
-			}
-		}
-	}*/
-
 };
 
 window.addEventListener("load", ludo);
