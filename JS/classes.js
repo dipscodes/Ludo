@@ -227,47 +227,41 @@ const ludo = () => {
 		}*/
 
 		animate(absolutePosition, boardPosition, boardPositionClass, newBoardPositionClass) {
-			console.log("before : " + absolutePosition + " : " + boardPositionClass + " : " + newBoardPositionClass);
-
 			if (absolutePosition + 1 > 50 && absolutePosition + 1 < 56) {
 				absolutePosition = absolutePosition + 1;
 				newBoardPositionClass = this.getPieceColor.charAt(0) + (absolutePosition - 50);
-
-				console.log("safe : " + absolutePosition + " : " + boardPositionClass + " : " + newBoardPositionClass);
 			} else {
 				boardPosition = boardPosition + 1;
 				newBoardPositionClass = (boardPosition < 10) ? "C0" + boardPosition : "C" + boardPosition;
 				absolutePosition = (boardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
-
-				console.log("unsafe : " + absolutePosition + " : " + boardPositionClass + " : " + newBoardPositionClass);
 			}
 
-			pieceHTML.children[0].classList.replace(boardPositionClass, newBoardPositionClass);
-			pieceHTML.children[1].classList.replace(boardPositionClass, newBoardPositionClass);
-			pieceHTML.setAttribute("data-boardpositionclass", newBoardPositionClass);
+			this.getPiece.children[0].classList.replace(boardPositionClass, newBoardPositionClass);
+			this.getPiece.children[1].classList.replace(boardPositionClass, newBoardPositionClass);
+			this.getPiece.setAttribute("data-boardpositionclass", newBoardPositionClass);
 
-			console.log("after : " + absolutePosition + " : " + boardPositionClass + " : " + newBoardPositionClass);
-			console.log(" ");
+			return [absolutePosition, boardPosition, newBoardPositionClass];
 		}
 
 		closingListener(resolve, face) {
-			//this.getPiece.remove();
+			let boardPosition = this.getBoardPosition;
+			let absolutePosition = this.getAbsolutePosition;
+			let timeOut = 0;
+			let boardPositionClass = this.getPiece.getAttribute("data-boardPositionClass");
+			let newBoardPositionClass;
+
 			this.setVulnerability = false;
 			this.setCurrentSteps = face;
 			this.setCurrentStatus = this.getFinalStatus;
-			let boardPosition = this.getBoardPosition;
 			this.setBoardPosition = face;
-			let absolutePosition = this.getAbsolutePosition;
 			this.setAbsolutePosition = this.getAbsolutePosition + face;
-
-			let timeOut = 0;
-			let pieceHTML = this.getPiece;
-			let boardPositionClass = pieceHTML.getAttribute("data-boardPositionClass");
-			let newBoardPositionClass;
 
 			for (let steps = 0; steps < face; steps++) {
 				setTimeout(() => {
-					this.animate(absolutePosition, boardPosition, boardPositionClass, newBoardPositionClass);
+					let value = this.animate(absolutePosition, boardPosition, boardPositionClass, newBoardPositionClass);
+					absolutePosition = value[0];
+					boardPosition = value[1];
+					newBoardPositionClass = value[2];
 					boardPositionClass = newBoardPositionClass;
 
 					if (steps === face - 1) this.getPiece.remove();
@@ -276,7 +270,7 @@ const ludo = () => {
 				timeOut += 100;
 			}
 
-			resolve([this.getPieceNumber, this.getColor, []]);
+			resolve([this.getPieceNumber, this.getColor, [], true]);
 		}
 
 		move(face) {
@@ -315,41 +309,9 @@ const ludo = () => {
 		}*/
 
 		movingListener(resolve, face) {
-			/*let boardPositionClass;
-			let boardPositionTemp = this.getBoardPosition;
-			this.setBoardPosition = face;
-
-			let cutablePieces = [];
-
-			if (this.getAbsolutePosition + face > 50 && this.getAbsolutePosition + face < 56) {
-				let boardPositionClass = this.getPieceColor.charAt(0) + (this.getAbsolutePosition + face - 50);
-				this.setAbsolutePosition = this.getAbsolutePosition + face;
-				//pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
-			} else {
-				let boardPositionClass = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
-				cutablePieces = cutPieces(boardPositionClass, this.getVulnerability, this.getColor);
-				// pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
-				this.setAbsolutePosition = (this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
-			}
-
-			for (let step = 0; step < face; step++) {
-				setTimeout(() => {
-					let boardPositionClass = (boardPositionTemp < 10) ? "C0" + boardPositionTemp : "C" + boardPositionTemp;
-					boardPositionTemp += 1;
-					let newBoardPositionClass = (boardPositionTemp < 10) ? "C0" + boardPositionTemp : "C" + boardPositionTemp;
-
-					console.log(boardPositionClass + " : " + newBoardPositionClass);
-					pieceHTML.children[0].classList.replace(boardPositionClass, newBoardPositionClass);
-					pieceHTML.children[1].classList.replace(boardPositionClass, newBoardPositionClass);
-					pieceHTML.setAttribute("data-boardpositionclass", newBoardPositionClass);
-				}, timeOut);
-
-				timeOut += 500;
-			}*/
-
 			let pieceHTML = this.getPiece;
 			let timeOut = 0;
-			let boardPositionClass, newBoardPositionClass, cutablePieces;
+			let boardPositionClass, newBoardPositionClass;
 			let absolutePosition = this.getAbsolutePosition;
 			let boardPosition = this.getBoardPosition;
 
@@ -359,41 +321,27 @@ const ludo = () => {
 			this.setAbsolutePosition = this.getBoardPosition + face;
 			this.setBoardPosition = face;
 
-			console.log(this.getAbsolutePosition);
+			testBoard.print();
+
+			let cutablePieces = cutPieces((this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition, this.getVulnerability, this.getColor);
+			resolve([this.getPieceNumber, this.getColor, cutablePieces]);
 
 			boardPositionClass = pieceHTML.getAttribute("data-boardPositionClass");
 			for (let step = 0; step < face; step++) {
 				setTimeout(() => {
-					console.log("before : " + absolutePosition + " : " + boardPositionClass + " : " + newBoardPositionClass);
-
-					if (absolutePosition + 1 > 50 && absolutePosition + 1 < 56) {
-						absolutePosition = absolutePosition + 1;
-						newBoardPositionClass = this.getPieceColor.charAt(0) + (absolutePosition - 50);
-
-						console.log("safe : " + absolutePosition + " : " + boardPositionClass + " : " + newBoardPositionClass);
-					} else {
-						boardPosition = boardPosition + 1;
-						newBoardPositionClass = (boardPosition < 10) ? "C0" + boardPosition : "C" + boardPosition;
-						absolutePosition = (boardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
-
-						console.log("unsafe : " + absolutePosition + " : " + boardPositionClass + " : " + newBoardPositionClass);
-					}
-
-					pieceHTML.children[0].classList.replace(boardPositionClass, newBoardPositionClass);
-					pieceHTML.children[1].classList.replace(boardPositionClass, newBoardPositionClass);
-					pieceHTML.setAttribute("data-boardpositionclass", newBoardPositionClass);
-
-					console.log("after : " + absolutePosition + " : " + boardPositionClass + " : " + newBoardPositionClass);
-					console.log(" ");
-
+					let value = this.animate(absolutePosition, boardPosition, boardPositionClass, newBoardPositionClass);
+					absolutePosition = value[0];
+					boardPosition = value[1];
+					newBoardPositionClass = value[2];
 					boardPositionClass = newBoardPositionClass;
-				}, timeOut);
 
+					if (step === face - 1) {
+
+
+					}
+				}, timeOut);
 				timeOut += 100;
 			}
-			cutablePieces = cutPieces(newBoardPositionClass, this.getVulnerability, this.getColor);
-
-			resolve([this.getPieceNumber, this.getColor, cutablePieces]);
 		}
 	}
 
@@ -532,7 +480,7 @@ const ludo = () => {
 
 			Promise.race(this.getListOfPromises).then((value) => {
 				let nextPlayerIndex = 0;
-				let closingConfirmation = false;
+				let closingConfirmation;
 
 				let color;
 				try {
@@ -547,14 +495,26 @@ const ludo = () => {
 						piece.deactivate();
 					} catch (error) {
 						if (piece.getCurrentStatus === piece.getFinalStatus && piece.getPieceNumber === value[0]) {
-							this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
-							this.setNumberOfConsecutiveSixes = 0;
-							closingConfirmation = true;
+							//this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
+							//this.setNumberOfConsecutiveSixes = 0;
+							//closingConfirmation = true;
 						}
 					}
 				}
 
 				this.setListOfPromises = [];
+
+				try {
+					closingConfirmation = value[3];
+					if (closingConfirmation) {
+						this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
+						this.setNumberOfConsecutiveSixes = 0;
+
+						console.log(this.getNumberOfConsecutiveSixes + " : " + this.getNumberOfAvailablePieces);
+					}
+				} catch (error) {
+					closingConfirmation = false;
+				}
 
 				if(!(closingConfirmation || face === 6)) {
 					nextPlayerIndex = 1;
@@ -638,6 +598,10 @@ const ludo = () => {
 			this.numberOfPlayers = numberOfPlayers;
 		}
 
+		print() {
+			console.log("works");
+		}
+
 		async play() {
 			let activePlayerIndex = 0;
 			this.setActivePlayer = this.getPlayerArray[activePlayerIndex];
@@ -673,7 +637,10 @@ const ludo = () => {
 	}
 
 	let testBoard = new Board(2,2);
+	console.log(testBoard.prototype);
 	testBoard.play().then((value) => { });
+
+
 };
 
 window.addEventListener("load", ludo);
