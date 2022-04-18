@@ -189,7 +189,7 @@
 
 
 /*Green*/
-.C00 {top: 40%;left:6.66%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate00;}
+.C00 {top: 40%;left:6.66%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate00;}
 @keyframes animate00 {
     from {
         left: 0;
@@ -198,7 +198,7 @@
         left: 6.66%;
     }
 }
-.C01 {top: 40%;left:13.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate01;}
+.C01 {top: 40%;left:13.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate01;}
 @keyframes animate01 {
     from {
         left: 6.66%;
@@ -207,7 +207,7 @@
         left: 13.2%;
     }
 }
-.C02 {top: 40%;left:19.98%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate02;}
+.C02 {top: 40%;left:19.98%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate02;}
 @keyframes animate02 {
     from {
         left: 13.2%;
@@ -216,7 +216,7 @@
         left: 19.98%;
     }
 }
-.C03 {top: 40%;left:26.64%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate03;}
+.C03 {top: 40%;left:26.64%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate03;}
 @keyframes animate03 {
     from {
         left: 19.98%;
@@ -225,7 +225,7 @@
         left: 26.64%;
     }
 }
-.C04 {top: 40%;left:33.3%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate04;}
+.C04 {top: 40%;left:33.3%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate04;}
 @keyframes animate04 {
     from {
         left: 26.6%;
@@ -234,7 +234,7 @@
         left: 33.3%;
     }
 }
-.C05 {top: 33.3%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate05;}
+.C05 {top: 33.3%;left:40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate05;}
 @keyframes animate05 {
     from {
         top: 33.33%;
@@ -245,7 +245,7 @@
         left: 40%;
     }
 }
-.C06 {top: 26.64%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate06;}
+.C06 {top: 26.64%;left:40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate06;}
 @keyframes animate06 {
     from {
         top: 33.3%;
@@ -254,7 +254,7 @@
         top: 26.6%;
     }
 }
-.C07 {top: 19.98%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate07;}
+.C07 {top: 19.98%;left:40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate07;}
 @keyframes animate07 {
     from {
         top: 26.6%;
@@ -263,7 +263,7 @@
         top: 19.98%;
     }
 }
-.C08 {top: 13.32%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate08;}
+.C08 {top: 13.32%;left:40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate08;}
 @keyframes animate08 {
     from {
         top: 19.98%;
@@ -272,7 +272,7 @@
         top: 13.32%;
     }
 }
-.C09 {top: 6.66%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate09;}
+.C09 {top: 6.66%;left:40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate09;}
 @keyframes animate09 {
     from {
         top: 13.32%;
@@ -281,7 +281,7 @@
         top: 6.66%;
     }
 }
-.C10 {top: 0;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate10;}
+.C10 {top: 0;left:40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate10;}
 @keyframes animate10 {
     from {
         top: 6.66%;
@@ -290,7 +290,7 @@
         top: 0;
     }
 }
-.C11 {top: 0;left:46.66%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate11;}
+.C11 {top: 0;left:46.66%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate11;}
 @keyframes animate11 {
     from {
         left: 40%;
@@ -299,7 +299,7 @@
         left: 46.66%;
     }
 }
-.C12 {top: 0;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate12;}
+.C12 {top: 0;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate12;}
 @keyframes animate12 {
     from {
         left: 46.66%;
@@ -311,7 +311,7 @@
 
 
 /*Yellow*/
-.C13 {top: 6.66%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate13;}
+.C13 {top: 6.66%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate13;}
 @keyframes animate13 {
     from {
         top: 0;
@@ -320,7 +320,7 @@
         top: 6.66%;
     }
 }
-.C14 {top: 13.32%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate14;}
+.C14 {top: 13.32%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate14;}
 @keyframes animate14 {
     from {
         top: 6.66%;
@@ -329,7 +329,7 @@
         top: 13.32%;
     }
 }
-.C15 {top: 19.98%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate15;}
+.C15 {top: 19.98%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate15;}
 @keyframes animate15 {
     from {
         top: 13.32%;
@@ -338,7 +338,7 @@
         top: 19.98%;
     }
 }
-.C16 {top: 26.64%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate16;}
+.C16 {top: 26.64%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate16;}
 @keyframes animate16 {
     from {
         top: 19.98%;
@@ -347,7 +347,7 @@
         top: 26.64%;
     }
 }
-.C17 {top: 33.3%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate17;}
+.C17 {top: 33.3%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate17;}
 @keyframes animate17 {
     from {
         top: 26.64%;
@@ -356,63 +356,64 @@
         top: 33.3%;
     }
 }
-.C18 {top: 40%;right: 33.3%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate18;}
+.C18 {top: 40%;left: 59.98%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate18;}
 @keyframes animate18 {
     from {
         top: 33.3%;
-        right: calc(100% - 53.32%);
+        left: 53.32%;
+        /*right: calc(100% - 53.32%);*/
     }
     to {
         top: 40%;
-        right: 33.3%;
+        left: 59.92%;
     }
 }
-.C19 {top: 40%;right:26.64%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate19;}
+.C19 {top: 40%;left: 66.64%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate19;}
 @keyframes animate19 {
     from {
-        right: 33.3%;
+        left: 59.92%;
     }
     to {
-        right: 26.64%;
+        left: 66.58%;
     }
 }
-.C20 {top: 40%;right:19.98%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate20;}
+.C20 {top: 40%;left: 73.3%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate20;}
 @keyframes animate20 {
     from {
-        right: 26.64%;
+        left: 66.58%;
     }
     to {
-        right: 19.98%;
+        left: 73.24%;
     }
 }
-.C21 {top: 40%;right:13.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate21;}
+.C21 {top: 40%;left: 79.96%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate21;}
 @keyframes animate21 {
     from {
-        right: 19.98%;
+        left: 73.24%;
     }
     to {
-        right: 13.32%;
+        left: 79.9%;
     }
 }
-.C22 {top: 40%;right:6.66%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate22;}
+.C22 {top: 40%;left: 86.62%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate22;}
 @keyframes animate22 {
     from {
-        right: 13.32%;
+        left: 79.9%;
     }
     to {
-        right: 6.66%;
+        left: 86.56%;
     }
 }
-.C23 {top: 40%;right:0;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate23;}
+.C23 {top: 40%;left: 93.28%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate23;}
 @keyframes animate23 {
     from {
-        right: 6.66%;
+        left: 86.56%;
     }
     to {
-        right: 0;
+        left: 93.22%;
     }
 }
-.C24 {top: 46.66%;right:0;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate24;}
+.C24 {top: 46.66%;left: 93.28%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate24;}
 @keyframes animate24 {
     from {
         top: 40%;
@@ -421,10 +422,10 @@
         top: 46.66%;
     }
 }
-.C25 {top: 53.32%;right:0;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate25;}
+.C25 {top: 53.32%;left: 93.28%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate25;}
 @keyframes animate25 {
     from {
-        left: 46.66%;
+        top: 46.66%;
     }
     to {
         top: 53.32%;
@@ -433,108 +434,108 @@
 
 
 /*Blue*/
-.C26 {top: 53.32%;right:06.66%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate26;}
+.C26 {top: 53.32%;left: 86.62%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate26;}
 @keyframes animate26 {
     from {
-        right: 0;
+        left: 93.22%;
     }
     to {
-        right: 6.66%;
+        left: 86.56%;
     }
 }
-.C27 {top: 53.32%;right:13.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate27;}
+.C27 {top: 53.32%;left: 79.96%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate27;}
 @keyframes animate27 {
     from {
-        right: 6.66%;
+        left: 86.56%;
     }
     to {
-        right: 13.32%;
+        left: 79.90%;
     }
 }
-.C28 {top: 53.32%;right:19.98%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate28;}
+.C28 {top: 53.32%;left: 73.3%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate28;}
 @keyframes animate28 {
     from {
-        right: 13.32%;
+        left: 79.9%;
     }
     to {
-        right: 19.98%;
+        left: 73.24%;
     }
 }
-.C29 {top: 53.32%;right:26.64%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate29;}
+.C29 {top: 53.32%;left: 66.64%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate29;}
 @keyframes animate29 {
     from {
-        right: 19.98%;
+        left: 73.24%;
     }
     to {
-        right: 26.64%;
+        left: 66.58%;
     }
 }
-.C30 {top: 53.32%;right:33.30%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate30;}
+.C30 {top: 53.32%;left: 59.98%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate30;}
 @keyframes animate30 {
     from {
-        right: 26.64%;
+        left: 66.58%;
     }
     to {
-        right: 33.3%;
+        left: 59.92%;
     }
 }
-.C31 {bottom: 33.30%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate31;}
+.C31 {top: 59.98%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate31;}
 @keyframes animate31 {
     from {
-        bottom: calc(100% - 53.32%);
-        left: calc(100% - 33.3%);
+        top: 53.32%;
+        left: 59.92%;
     }
     to {
-        bottom: 33.3%;
+        top: 59.98%;
         left: 53.32%;
     }
 }
-.C32 {bottom: 26.64%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate32;}
+.C32 {top: 66.64%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate32;}
 @keyframes animate32 {
     from {
-        bottom: 33.3%;
+        top: 59.98%;
     }
     to {
-        bottom: 26.64%;
+        top: 66.64%;
     }
 }
-.C33 {bottom: 19.98%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate33;}
+.C33 {top: 73.3%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate33;}
 @keyframes animate33 {
     from {
-        bottom: 26.64%;
+        top: 66.64%;
     }
     to {
-        bottom: 19.98%;
+        top: 73.3%;
     }
 }
-.C34 {bottom: 13.32%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate34;}
+.C34 {top: 79.96%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate34;}
 @keyframes animate34 {
     from {
-        bottom: 19.98%;
+        top: 73.3%;
     }
     to {
-        bottom: 13.32%;
+        top: 79.96%;
     }
 }
-.C35 {bottom: 06.66%;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate35;}
+.C35 {top: 86.62%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate35;}
 @keyframes animate35 {
     from {
-        bottom: 13.32%;
+        top: 79.96%;
     }
     to {
-        bottom: 6.66%;
+        top: 86.62%;
     }
 }
-.C36 {bottom: 0;left:53.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate36;}
+.C36 {top: 93.28%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate36;}
 @keyframes animate36 {
     from {
-        bottom: 6.66%;
+        top: 86.62%;
     }
     to {
-        bottom: 0;
+        top: 93.28%;
     }
 }
-.C37 {bottom: 0;left:46.66%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate37;}
+.C37 {top: 93.28%;left: 46.66%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate37;}
 @keyframes animate37 {
     from {
         left: 53.32%;
@@ -543,7 +544,7 @@
         left: 46.66%;
     }
 }
-.C38 {bottom: 0;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate38;}
+.C38 {top: 93.28%;left: 40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate38;}
 @keyframes animate38 {
     from {
         left: 46.66%;
@@ -555,55 +556,55 @@
 
 
 /*Red*/
-.C39 {bottom: 6.66%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate39;}
+.C39 {top: 86.62%;left: 40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate39;}
 @keyframes animate39 {
     from {
-        bottom: 0;
+        top: 93.28%;
     }
     to {
-        bottom: 6.66%;
+        top: 86.62%;
     }
 }
-.C40 {bottom: 13.32%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate40;}
+.C40 {top: 79.96%;left: 40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate40;}
 @keyframes animate40 {
     from {
-        bottom: 6.66%;
+        top: 86.62%;
     }
     to {
-        bottom: 13.32%;
+        top: 79.96%;
     }
 }
-.C41 {bottom: 19.98%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate41;}
+.C41 {top: 73.3%;left:40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate41;}
 @keyframes animate41 {
     from {
-        bottom: 13.32%;
+        top: 79.96%;
     }
     to {
-        bottom: 19.98%;
+        top: 73.3%;
     }
 }
-.C42 {bottom: 26.64%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate42;}
+.C42 {top: 66.64%;left:40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate42;}
 @keyframes animate42 {
     from {
-        bottom: 19.98%;
+        top: 73.3%;
     }
     to {
-        bottom: 26.64%;
+        top: 66.64%;
     }
 }
-.C43 {bottom: 33.3%;left:40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate43;}
+.C43 {top: 59.98%;left: 40%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate43;}
 @keyframes animate43 {
     from {
-        bottom: 26.64%;
+        top: 66.64%;
     }
     to {
-        bottom: 33.3%;
+        top: 59.98%;
     }
 }
-.C44 {top: 53.32%;left: 33.3%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate44;}
+.C44 {top: 53.32%;left: 33.3%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate44;}
 @keyframes animate44 {
     from {
-        top: calc(100% - 33.33%);
+        top: 59.98%;
         left: 40%;
     }
     to {
@@ -611,7 +612,7 @@
         left: 33.3%;
     }
 }
-.C45 {top: 53.32%;left:26.64%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate45;}
+.C45 {top: 53.32%;left: 26.64%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate45;}
 @keyframes animate45 {
     from {
         left: 33.3%;
@@ -620,7 +621,7 @@
         left: 26.64%;
     }
 }
-.C46 {top: 53.32%;left:19.98%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate46;}
+.C46 {top: 53.32%;left: 19.98%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate46;}
 @keyframes animate46 {
     from {
         left: 26.64%;
@@ -629,7 +630,7 @@
         left: 19.98%;
     }
 }
-.C47 {top: 53.32%;left:13.32%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate47;}
+.C47 {top: 53.32%;left: 13.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate47;}
 @keyframes animate47 {
     from {
         left: 19.98%;
@@ -638,7 +639,7 @@
         left: 13.32%;
     }
 }
-.C48 {top: 53.32%;left:6.66%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate48;}
+.C48 {top: 53.32%;left: 6.66%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate48;}
 @keyframes animate48 {
     from {
         left: 13.32%;
@@ -647,7 +648,7 @@
         left: 6.66%;
     }
 }
-.C49 {top: 53.32%;left:0;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate49;}
+.C49 {top: 53.32%;left: 0;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate49;}
 @keyframes animate49 {
     from {
         left: 6.66%;
@@ -656,7 +657,7 @@
         left: 0;
     }
 }
-.C50 {top: 46.66%;left:0;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate50;}
+.C50 {top: 46.66%;left: 0;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate50;}
 @keyframes animate50 {
     from {
         top: 53.32%;
@@ -665,7 +666,7 @@
         top: 46.6%;
     }
 }
-.C51 {top: 40%;animation-duration: 200ms;animation-fill-mode: forwards;animation-name: animate51;}
+.C51 {top: 40%;left: 0;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate51;}
 @keyframes animate51 {
     from {
         top: 46.6%;
