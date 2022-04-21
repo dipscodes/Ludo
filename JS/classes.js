@@ -200,7 +200,12 @@ const ludo = () => {
 			this.setCurrentStatus = 1;
 			this.setBoardPosition = 0;
 
-			console.log(this.getVulnerability);
+			for (let piece of ludoBoard.getPlayerArray[this.getColor].getListOfPieces) {
+				try {
+					piece.removeClick();
+					piece.deactivate();
+				} catch (error) {}
+			}
 
 			let boardPosition = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
 			pieceAtIndex(boardPosition, this.getPieceID, this.getColor, this.getPieceNumber);
@@ -252,13 +257,18 @@ const ludo = () => {
 			let boardPositionClass = this.getPiece.getAttribute("data-boardPositionClass");
 			let newBoardPositionClass;
 
-			console.log(this.getVulnerability);
-
 			this.setVulnerability = false;
 			this.setCurrentSteps = face;
 			this.setCurrentStatus = this.getFinalStatus;
 			this.setBoardPosition = face;
 			this.setAbsolutePosition = this.getAbsolutePosition + face;
+
+			for (let piece of ludoBoard.getPlayerArray[this.getColor].getListOfPieces) {
+				try {
+					piece.removeClick();
+					piece.deactivate();
+				} catch (error) {}
+			}
 
 			for (let steps = 0; steps < face; steps++) {
 				setTimeout(() => {
@@ -325,8 +335,6 @@ const ludo = () => {
 			this.setBoardPosition = face;
 			this.setVulnerability = Boolean(this.getBoardPosition % 13);
 
-			console.log(this.getVulnerability);
-
 			let foo = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
 			let cutablePieces = cutPieces(foo, this.getVulnerability, this.getColor);
 
@@ -334,9 +342,7 @@ const ludo = () => {
 				try {
 					piece.removeClick();
 					piece.deactivate();
-				} catch (error) {
-					console.log(piece.getPieceID);
-				}
+				} catch (error) {}
 			}
 
 			boardPositionClass = pieceHTML.getAttribute("data-boardPositionClass");
@@ -484,7 +490,7 @@ const ludo = () => {
 			}
 
 			if (noAvailableMoves === this.getNumberOfAvailablePieces) {
-				this.getListOfPromises.push(new Promise((resolve, reject) => { resolve([-1, -1, []]); }));
+				this.getListOfPromises.push(new Promise((resolve, reject) => { resolve([-1, -1, []]);}));
 			}
 
 			Promise.race(this.getListOfPromises).then((value) => {
@@ -493,24 +499,18 @@ const ludo = () => {
 				this.setListOfPromises = [];
 
 				let color;
-				try {
-					color = value[2][0][1];
-				} catch (error) {
-					color = null;
-				}
+				try { color = value[2][0][1];} catch (error) { color = null;}
 
-				try {
-					closingConfirmation = value[3];
-					if (closingConfirmation) {
-						this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
-						this.setNumberOfConsecutiveSixes = 0;
+				if (value[3] !== undefined) {
+					this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
+					this.setNumberOfConsecutiveSixes = 0;
+					closingConfirmation = true;
 
-						console.log(this.getNumberOfConsecutiveSixes + " : " + this.getNumberOfAvailablePieces);
-					}
-				} catch (error) {
-					closingConfirmation = false;
+					console.log(this.getNumberOfConsecutiveSixes + " : " + this.getNumberOfAvailablePieces);
 				}
 				if(!(closingConfirmation || face === 6))	nextPlayerIndex = 1;
+
+
 
 				resolve([nextPlayerIndex, color, value[2]]);
 			});
@@ -520,10 +520,6 @@ const ludo = () => {
 			return new Promise((resolve, reject) => {
 				const listenerFunction = this.listenerMethod.bind(this, resolve);
 				this.setHandler = listenerFunction;
-
-				for (let child of this.getPlayerButton.children) child.classList.remove("side-" + this.getColorName + "-grey");
-				for (let child of this.getPlayerButton.children) child.classList.add("side-" + this.getColorName);
-
 				this.getPlayerButton.addEventListener("click", listenerFunction);
 			});
 		}
@@ -590,28 +586,25 @@ const ludo = () => {
 			this.numberOfPlayers = numberOfPlayers;
 		}
 
-		print() {
-			console.log("works");
-		}
-
 		async play() {
 			let activePlayerIndex = 0;
 			this.setActivePlayer = this.getPlayerArray[activePlayerIndex];
 
 			while (this.getNumberOfPlayers >= 1) {
 				try {
+					for (let child of this.getActivePlayer.getPlayerButton.children) child.classList.remove("side-" + this.getActivePlayer.getColorName + "-grey");
+					for (let child of this.getActivePlayer.getPlayerButton.children) child.classList.add("side-" + this.getActivePlayer.getColorName);
+					//console.log(this.getPlayerArray[activePlayerIndex].getPlayerButton);
+
 					let nextActivePlayerInfo = await this.getActivePlayer.rollDiceNew();
 					let playerOffset = nextActivePlayerInfo[0];
 					let cutPieceColor = nextActivePlayerInfo[1];
 					let listOfCutPieces = nextActivePlayerInfo[2];
 
-					//console.log(cutPieceColor);
-					//console.log(listOfCutPieces);
-
 					for (let player of this.getPlayerArray) {
 						if (player === null || player.getColor !== cutPieceColor)	continue;
 						for (let piece of listOfCutPieces) {
-							console.log(piece[0]);
+							//console.log(piece[0]);
 							player.replacePiece(cutPieceColor, piece[0]);
 						}
 						playerOffset = 0;
@@ -635,7 +628,6 @@ const ludo = () => {
 	}
 
 	const ludoBoard = new Board(2,2);
-	//console.log(ludoBoard.prototype);
 	ludoBoard.play().then((value) => { });
 
 
