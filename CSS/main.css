@@ -73,7 +73,6 @@
     right: 20%;
 }
 
-
 .home {
     position: absolute;
     top:40%;
@@ -95,42 +94,27 @@
 }
 
 .safe {
-    background-color: #99999938;
-    /*
-    -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    */
+    background-color: gold;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 
 .g-start {
     background-color: #66bb6a;
-    /*
-    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
-    */
     clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
 }
 
 .y-start {
     background-color: #fff176;
-    /*
-    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
-    */
     clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
 }
 
 .r-start {
     background-color: #e53935;
-    /*
-    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
-    */
     clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
 }
 
 .b-start {
     background-color: #29b6f6;
-    /*
-    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
-    */
     clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
 }
 
@@ -311,7 +295,7 @@
 
 
 /*Yellow*/
-.C13 {top: 6.66%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate13;}
+.C13 {top: 6.66%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate13;}
 @keyframes animate13 {
     from {
         top: 0;
@@ -320,7 +304,7 @@
         top: 6.66%;
     }
 }
-.C14 {top: 13.32%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate14;}
+.C14 {top: 13.32%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate14;}
 @keyframes animate14 {
     from {
         top: 6.66%;
@@ -329,7 +313,7 @@
         top: 13.32%;
     }
 }
-.C15 {top: 19.98%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate15;}
+.C15 {top: 19.98%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate15;}
 @keyframes animate15 {
     from {
         top: 13.32%;
@@ -338,7 +322,7 @@
         top: 19.98%;
     }
 }
-.C16 {top: 26.64%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate16;}
+.C16 {top: 26.64%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate16;}
 @keyframes animate16 {
     from {
         top: 19.98%;
@@ -347,7 +331,7 @@
         top: 26.64%;
     }
 }
-.C17 {top: 33.3%;left:53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate17;}
+.C17 {top: 33.3%;left: 53.32%;animation-duration: 50ms;animation-fill-mode: forwards;animation-name: animate17;}
 @keyframes animate17 {
     from {
         top: 26.64%;
@@ -696,7 +680,6 @@
 }
 
 
-
 /*Green House Piece*/
 .cell000{top: 12.10%; right: 80.90%}
 .cell001{top: 12.10%; right: 71.98%}
@@ -882,40 +865,52 @@ button:hover, button:active {
 }
 
 .side:nth-child(1) {
-    transform: translateZ(1.55em); }
+    transform: translateZ(1.55em);
+}
 
 .side:nth-child(6) {
-    transform: rotateY(90deg) translateZ(1.55em); }
+    transform: rotateY(90deg) translateZ(1.55em);
+}
 
 .side:nth-child(3) {
-    transform: rotateY(-90deg) translateZ(1.55em); }
+    transform: rotateY(-90deg) translateZ(1.55em);
+}
 
 .side:nth-child(4) {
-    transform: rotateX(90deg) translateZ(1.55em); }
+    transform: rotateX(90deg) translateZ(1.55em);
+}
 
 .side:nth-child(5) {
-    transform: rotateX(-90deg) translateZ(1.55em); }
+    transform: rotateX(-90deg) translateZ(1.55em);
+}
 
 .side:nth-child(2) {
-    transform: rotateY(-180deg) translateZ(1.55em); }
+    transform: rotateY(-180deg) translateZ(1.55em);
+}
 
 .show-1 {
-    transform: rotateX(720deg) rotateZ(-720deg); }
+    transform: rotateX(720deg) rotateZ(-720deg);
+}
 
 .show-2 {
-    transform: rotateX(-900deg) rotateZ(1080deg); }
+    transform: rotateX(-900deg) rotateZ(1080deg);
+}
 
 .show-6 {
-    transform: rotateY(-450deg) rotateZ(-1440deg); }
+    transform: rotateY(-450deg) rotateZ(-1440deg);
+}
 
 .show-3 {
-    transform: rotateY(810deg) rotateZ(720deg); }
+    transform: rotateY(810deg) rotateZ(720deg);
+}
 
 .show-4 {
-    transform: rotateX(-810deg) rotateZ(-1080deg); }
+    transform: rotateX(-810deg) rotateZ(-1080deg);
+}
 
 .show-5 {
-    transform: rotateX(450deg) rotateZ(-720deg); }
+    transform: rotateX(450deg) rotateZ(-720deg);
+}
 
 .two-1, .three-1, .four-1, .five-1, .six-1 {
     top: 30%;
