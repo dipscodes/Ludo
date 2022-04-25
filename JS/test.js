@@ -1,16 +1,33 @@
 "use strict"
 
-/*const myPromise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve('foo');
-    }, 300);
-});
+class Student {
 
-myPromise.then(value => {
-    console.log(value);
-});*/
+	constructor (name, age) {
+		this.name = name;
+		this.age = age;
+	}
 
-//console.log("this");
+	print() {
+		console.log(this.name + " " + this.age + " : " + this.school);
+	}
 
-let t = 10;
-if (t) console.log(t);
+	printq() {
+		console.log(Student.prototype);
+
+		this.print();
+	}
+}
+Student.prototype.school = "St Marks School";
+const student1 = new Student("Rohan", 17);
+let student2 = new Student("Shawn", 16);
+
+
+let list = [0,1,2];
+
+try {
+	let c = list[3];
+	console.log(list[4]);
+} catch (error) {
+	console.log("oops");
+}
+

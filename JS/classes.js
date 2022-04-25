@@ -464,16 +464,14 @@ const ludo = () => {
 			}
 
 			let face = Math.floor((Math.random() * 6) + 1);
+			let noAvailableMoves = 0;
 
 			if (face === 6) this.setNumberOfConsecutiveSixes = (this.getNumberOfConsecutiveSixes + 1) % this.getNumberOfMaximumConsecutiveSixes;
 			else this.setNumberOfConsecutiveSixes = 0;
 			if (face === 6 && this.getNumberOfConsecutiveSixes === 0)	face = 5;
 
 			rollDice(button, face);
-
 			face = parseInt(document.getElementById(this.getColorName + "Input").value);
-
-			let noAvailableMoves = 0;
 
 			for (let piece of this.getListOfPieces) {
 				if (piece.getCurrentStatus === piece.getInitialStatus && face === 6) {
@@ -509,8 +507,6 @@ const ludo = () => {
 					console.log(this.getNumberOfConsecutiveSixes + " : " + this.getNumberOfAvailablePieces);
 				}
 				if(!(closingConfirmation || face === 6))	nextPlayerIndex = 1;
-
-
 
 				resolve([nextPlayerIndex, color, value[2]]);
 			});
@@ -594,7 +590,6 @@ const ludo = () => {
 				try {
 					for (let child of this.getActivePlayer.getPlayerButton.children) child.classList.remove("side-" + this.getActivePlayer.getColorName + "-grey");
 					for (let child of this.getActivePlayer.getPlayerButton.children) child.classList.add("side-" + this.getActivePlayer.getColorName);
-					//console.log(this.getPlayerArray[activePlayerIndex].getPlayerButton);
 
 					let nextActivePlayerInfo = await this.getActivePlayer.rollDiceNew();
 					let playerOffset = nextActivePlayerInfo[0];
@@ -603,10 +598,7 @@ const ludo = () => {
 
 					for (let player of this.getPlayerArray) {
 						if (player === null || player.getColor !== cutPieceColor)	continue;
-						for (let piece of listOfCutPieces) {
-							//console.log(piece[0]);
-							player.replacePiece(cutPieceColor, piece[0]);
-						}
+						for (let piece of listOfCutPieces) player.replacePiece(cutPieceColor, piece[0]);
 						playerOffset = 0;
 						break;
 					}
@@ -614,6 +606,7 @@ const ludo = () => {
 					if (this.getActivePlayer.getNumberOfAvailablePieces === 0) {
 						this.getPlayerArray[activePlayerIndex] = null;
 						this.setNumberOfPlayers = this.getNumberOfPlayers - 1;
+						if (this.getNumberOfPlayers === 1) break;
 					}
 
 					activePlayerIndex = (activePlayerIndex + playerOffset) % 4;
@@ -627,8 +620,10 @@ const ludo = () => {
 		}
 	}
 
-	const ludoBoard = new Board(2,2);
-	ludoBoard.play().then((value) => { });
+	const ludoBoard = new Board(3,3);
+	ludoBoard.play().then((value) => {
+		console.log(value);
+	});
 
 
 };
