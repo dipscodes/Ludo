@@ -2,6 +2,10 @@ const ludo = () => {
 	"use strict";
 	const houseColorArray = ["green", "yellow", "blue", "red"];
 
+	function testForReaper () {
+		alert("something");
+	}
+
 	function rollDie() {
 		return Math.floor((Math.random() * 6) + 1);
 	}
