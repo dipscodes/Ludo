@@ -255,11 +255,15 @@ const ludo = () => {
 			let boardPositionClass = this.getPiece.getAttribute("data-boardPositionClass");
 			let newBoardPositionClass;
 
+			//console.log("one");
+
 			this.setVulnerability = false;
 			this.setCurrentSteps = face;
 			this.setCurrentStatus = this.getFinalStatus;
 			this.setBoardPosition = face;
 			this.setAbsolutePosition = this.getAbsolutePosition + face;
+
+			//console.log("two");
 
 			for (let piece of ludoBoard.getPlayerArray[this.getColor].getListOfPieces) {
 				try {
@@ -268,21 +272,31 @@ const ludo = () => {
 				} catch (error) {}
 			}
 
-			for (let steps = 0; steps < face; steps++) {
+			//console.log("three");
+
+			for (let step = 0; step < face; step++) {
 				setTimeout(() => {
+					//console.log(step);
 					let value = this.animate(absolutePosition, boardPosition, boardPositionClass, newBoardPositionClass);
+					//console.log(...value);
 					absolutePosition = value[0];
 					boardPosition = value[1];
 					newBoardPositionClass = value[2];
 					boardPositionClass = newBoardPositionClass;
 
-					if (steps === face - 1) this.getPiece.remove();
-					}, timeOut);
 
-				timeOut += 100;
+					if (step === face - 1) {
+						this.getPiece.remove();
+						//console.log("does");
+						resolve([this.getPieceNumber, this.getColor, [], true]);
+						/*setTimeout(()=>{
+
+						}, 50);*/
+					}
+				}, timeOut);
+
+				timeOut += 200;
 			}
-
-			resolve([this.getPieceNumber, this.getColor, [], true]);
 		}
 
 		move(face) {
@@ -304,13 +318,13 @@ const ludo = () => {
 
 			this.setCurrentSteps = face;
 			this.setCurrentStatus = 1;
-			this.setAbsolutePosition = (this.getAbsolutePosition + face) % 56; //needs work. think to generalise.
+			this.setAbsolutePosition = (this.getAbsolutePosition + face) % 57; //needs work. think to generalise.
 			this.setBoardPosition = face;
 			this.setVulnerability = Boolean(this.getBoardPosition % 13);
 
 			let foo = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
 			let cutablePieces = cutPieces(foo, this.getVulnerability, this.getColor);
-			console.log(cutablePieces);
+			//console.log(cutablePieces);
 
 			for (let piece of ludoBoard.getPlayerArray[this.getColor].getListOfPieces) {
 				try {
@@ -319,7 +333,7 @@ const ludo = () => {
 				} catch (error) {}
 			}
 
-			console.log("one time : " + this.getAbsolutePosition);
+			//console.log("one time : " + this.getAbsolutePosition);
 
 			boardPositionClass = pieceHTML.getAttribute("data-boardPositionClass");
 			for (let step = 0; step < face; step++) {
@@ -338,9 +352,10 @@ const ludo = () => {
 		}
 
 		animate(absolutePosition, boardPosition, boardPositionClass, newBoardPositionClass) {
-			console.log(absolutePosition);
-			if (absolutePosition + 1 > 50 && absolutePosition + 1 < 56) {
+			//console.log(absolutePosition);
+			if (absolutePosition + 1 > 50 && absolutePosition + 1 < 57) {
 				absolutePosition = absolutePosition + 1;
+				if (absolutePosition === 56) return [null, null, null];
 				newBoardPositionClass = this.getPieceColor.charAt(0) + (absolutePosition - 50);
 			} else {
 				boardPosition = (boardPosition + 1) % 52;
@@ -435,7 +450,7 @@ const ludo = () => {
 		}
 
 		replacePiece(color, pieceNumber) {
-			console.log("vulnerability : " + this.getListOfPieces[pieceNumber].getVulnerability);
+			//console.log("vulnerability : " + this.getListOfPieces[pieceNumber].getVulnerability);
 			if (!this.getListOfPieces[pieceNumber].getVulnerability) return;
 			this.getListOfPieces[pieceNumber].getPiece.remove();
 
@@ -476,7 +491,7 @@ const ludo = () => {
 				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face === 56) {
 					this.getListOfPromises.push(piece.close(face));
 				} else if (piece.getCurrentStatus === piece.getFinalStatus) {
-					console.log("oh no");
+					//console.log("oh no");
 				} else {
 					noAvailableMoves += 1;
 				}
@@ -498,6 +513,7 @@ const ludo = () => {
 					this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
 					this.setNumberOfConsecutiveSixes = 0;
 					closingConfirmation = true;
+					console.log("does");
 				}
 				if(!(closingConfirmation || face === 6))	nextPlayerIndex = 1;
 
@@ -612,10 +628,10 @@ const ludo = () => {
 						document.getElementById("board").appendChild(foo(activePlayerIndex, this.getPlayerRank));
 						this.setPlayerRank = this.getPlayerRank + 1;
 						playerOffset = 1;
-						if (this.getNumberOfPlayers === 1) break;
-					}
 
-					console.log(activePlayerIndex + " : " + this.getPlayerRank + " : " + playerOffset);
+						//console.log(activePlayerIndex + " : " + this.getPlayerRank + " : " + playerOffset);
+						if (this.getNumberOfPlayers === 0) break;
+					}
 
 					activePlayerIndex = (activePlayerIndex + playerOffset) % 4;
 				} catch (e) {
