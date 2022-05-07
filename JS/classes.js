@@ -2,28 +2,24 @@ const ludo = () => {
 	"use strict";
 	const houseColorArray = ["green", "yellow", "blue", "red"];
 
-	function foo (a, b) {
-		let position = ["CGW", "CYW", "CBW", "CRW"];
-		let color = ["Gold", "Silver", "#cd7f32", "Whitesmoke"];
-		let c = color[b];
-		let p = position[a];
+	function makeStar (rank, player) {
+		let positionList = ["CGW", "CYW", "CBW", "CRW"];
+		let colorList = ["Gold", "Silver", "#cd7f32", "Whitesmoke"];
+		let color = colorList[player];
+		let position = positionList[rank];
 
-		let divv = document.createElement("div");
-		divv.setAttribute("class", p);
-		divv.style.color = c;
+		let star = document.createElement("div");
+		star.setAttribute("class", position);
+		star.style.color = color;
 
-		let idiv = document.createElement("i");
-		idiv.setAttribute("class", "fa fa-star fa-5x");
-		idiv.setAttribute("aria-hidden", "true");
-		divv.appendChild(idiv);
+		let starIcon = document.createElement("i");
+		starIcon.setAttribute("class", "fa fa-star fa-5x");
+		starIcon.setAttribute("aria-hidden", "true");
+		star.appendChild(starIcon);
 
-		//console.log(divv);
+		document.getElementById("board").appendChild(star);
 
-		return divv;
-	}
-
-	function testForReaper () {
-		alert("something");
+		return star;
 	}
 
 	function rollDie() {
@@ -255,15 +251,11 @@ const ludo = () => {
 			let boardPositionClass = this.getPiece.getAttribute("data-boardPositionClass");
 			let newBoardPositionClass;
 
-			//console.log("one");
-
 			this.setVulnerability = false;
 			this.setCurrentSteps = face;
 			this.setCurrentStatus = this.getFinalStatus;
 			this.setBoardPosition = face;
 			this.setAbsolutePosition = this.getAbsolutePosition + face;
-
-			//console.log("two");
 
 			for (let piece of ludoBoard.getPlayerArray[this.getColor].getListOfPieces) {
 				try {
@@ -272,26 +264,19 @@ const ludo = () => {
 				} catch (error) {}
 			}
 
-			//console.log("three");
-
 			for (let step = 0; step < face; step++) {
 				setTimeout(() => {
-					//console.log(step);
 					let value = this.animate(absolutePosition, boardPosition, boardPositionClass, newBoardPositionClass);
-					//console.log(...value);
 					absolutePosition = value[0];
 					boardPosition = value[1];
 					newBoardPositionClass = value[2];
 					boardPositionClass = newBoardPositionClass;
 
-
 					if (step === face - 1) {
-						this.getPiece.remove();
-						//console.log("does");
-						resolve([this.getPieceNumber, this.getColor, [], true]);
-						/*setTimeout(()=>{
-
-						}, 50);*/
+						setTimeout(()=>{
+							this.getPiece.remove();
+							resolve([this.getPieceNumber, this.getColor, [], true]);
+						}, 50);
 					}
 				}, timeOut);
 
@@ -324,7 +309,6 @@ const ludo = () => {
 
 			let foo = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
 			let cutablePieces = cutPieces(foo, this.getVulnerability, this.getColor);
-			//console.log(cutablePieces);
 
 			for (let piece of ludoBoard.getPlayerArray[this.getColor].getListOfPieces) {
 				try {
@@ -332,8 +316,6 @@ const ludo = () => {
 					piece.deactivate();
 				} catch (error) {}
 			}
-
-			//console.log("one time : " + this.getAbsolutePosition);
 
 			boardPositionClass = pieceHTML.getAttribute("data-boardPositionClass");
 			for (let step = 0; step < face; step++) {
@@ -352,7 +334,6 @@ const ludo = () => {
 		}
 
 		animate(absolutePosition, boardPosition, boardPositionClass, newBoardPositionClass) {
-			//console.log(absolutePosition);
 			if (absolutePosition + 1 > 50 && absolutePosition + 1 < 57) {
 				absolutePosition = absolutePosition + 1;
 				if (absolutePosition === 56) return [null, null, null];
@@ -450,7 +431,6 @@ const ludo = () => {
 		}
 
 		replacePiece(color, pieceNumber) {
-			//console.log("vulnerability : " + this.getListOfPieces[pieceNumber].getVulnerability);
 			if (!this.getListOfPieces[pieceNumber].getVulnerability) return;
 			this.getListOfPieces[pieceNumber].getPiece.remove();
 
@@ -491,7 +471,6 @@ const ludo = () => {
 				} else if (piece.getCurrentStatus === piece.getProgressStatus && piece.getAbsolutePosition + face === 56) {
 					this.getListOfPromises.push(piece.close(face));
 				} else if (piece.getCurrentStatus === piece.getFinalStatus) {
-					//console.log("oh no");
 				} else {
 					noAvailableMoves += 1;
 				}
@@ -513,7 +492,6 @@ const ludo = () => {
 					this.setNumberOfAvailablePieces = this.getNumberOfAvailablePieces - 1;
 					this.setNumberOfConsecutiveSixes = 0;
 					closingConfirmation = true;
-					console.log("does");
 				}
 				if(!(closingConfirmation || face === 6))	nextPlayerIndex = 1;
 
@@ -530,7 +508,6 @@ const ludo = () => {
 		}
 	}
 
-
 	class Board {
 		constructor(playerCount, playerHashedCount) {
 			const playerCombinationList = {
@@ -540,7 +517,7 @@ const ludo = () => {
 			};
 
 			this.colorArray = playerCombinationList[playerHashedCount];
-			this.playerList = [];
+			this.playerArray = [];
 			this.numberOfPlayers = playerCount;
 			this.activePlayer = null;
 			this.activePlayerIndex = 0;
@@ -548,13 +525,13 @@ const ludo = () => {
 
 			for (let iterate of this.colorArray) {
 				if (iterate === null) {
-					this.playerList.push(null);
+					this.playerArray.push(null);
 					continue;
 				}
 
 				let player = new Player(iterate);
 				player.setVisibility = true;
-				this.playerList.push(player);
+				this.playerArray.push(player);
 			}
 
 			document.getElementById("board").style.display = "flex";
@@ -577,7 +554,7 @@ const ludo = () => {
 		}
 
 		get getPlayerArray() {
-			return this.playerList;
+			return this.playerArray;
 		}
 
 		get getPlayerRank() {
@@ -597,13 +574,12 @@ const ludo = () => {
 		}
 
 		set setPlayerRank(rank) {
-			this.playerList = rank;
+			this.playerRank = rank;
 		}
 
 		async play() {
 			let activePlayerIndex = 0;
 			this.setActivePlayer = this.getPlayerArray[activePlayerIndex];
-			//document.getElementById("board").appendChild(foo(1,1));
 
 			while (this.getNumberOfPlayers >= 1) {
 				try {
@@ -622,14 +598,14 @@ const ludo = () => {
 						break;
 					}
 
-					if (this.getActivePlayer.getNumberOfAvailablePieces === 3) {
+					if (this.getActivePlayer.getNumberOfAvailablePieces === 0) {
 						this.getPlayerArray[activePlayerIndex] = null;
 						this.setNumberOfPlayers = this.getNumberOfPlayers - 1;
-						document.getElementById("board").appendChild(foo(activePlayerIndex, this.getPlayerRank));
 						this.setPlayerRank = this.getPlayerRank + 1;
+
 						playerOffset = 1;
 
-						//console.log(activePlayerIndex + " : " + this.getPlayerRank + " : " + playerOffset);
+						makeStar(activePlayerIndex, this.getPlayerRank);
 						if (this.getNumberOfPlayers === 0) break;
 					}
 
