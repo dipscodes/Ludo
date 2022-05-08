@@ -788,6 +788,34 @@ let testBoard = new Board(4);
 testBoard.play().then((value) => {
   //console.log(value);
 });
+
+
+   <!-- <div class="game-debug white-game" hidden>
+        <div class="house green">
+            <input id="greenButton" type="button" value="Green Player" style="height: 50px; color: #ffffff; font-weight: bold; font-size: 12px; background-color: #ff00ff; padding: 5px;">
+            <input type="text" size="7">
+        </div>
+        <div class="house yellow" style="right: 0">
+            <input id="yellowButton" type="button" value="Yellow Player" style="height: 50px; color: #ffffff; font-weight: bold; font-size: 12px; background-color: #ff00ff; padding: 5px">
+            <input type="text" size="7">
+        </div>
+        <div class="house red" style="bottom: 0">
+            <input id="redButton" type="button" value="Red Player" style="height: 50px; color: #ffffff; font-weight: bold; font-size: 12px; background-color: #ff00ff; padding: 5px">
+            <input type="text" size="7">
+        </div>
+        <div class="house blue" style="bottom: 0;right: 0">
+            <input id="blueButton" type="button" value="Blue Player" style="height: 50px; color: #ffffff; font-weight: bold; font-size: 12px; background-color: #ff00ff; padding: 5px">
+            <input type="text" size="7">
+        </div>
+    </div>-->
+
+
+
+
+
+
+
+
 */
 
 
@@ -805,3 +833,37 @@ o
 .
 .
 .*/
+
+
+/*let boardPositionClass;
+			let boardPositionTemp = this.getBoardPosition;
+			this.setBoardPosition = face;
+
+			let cutablePieces = [];
+
+			if (this.getAbsolutePosition + face > 50 && this.getAbsolutePosition + face < 56) {
+				let boardPositionClass = this.getPieceColor.charAt(0) + (this.getAbsolutePosition + face - 50);
+				this.setAbsolutePosition = this.getAbsolutePosition + face;
+				//pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
+			} else {
+				let boardPositionClass = (this.getBoardPosition < 10) ? "C0" + this.getBoardPosition : "C" + this.getBoardPosition;
+				cutablePieces = cutPieces(boardPositionClass, this.getVulnerability, this.getColor);
+				// pieceAtIndex(boardPositionClass, this.getPieceID, this.getColor, this.getPieceNumber);
+				this.setAbsolutePosition = (this.getBoardPosition + 13 * ((4 - this.getColor) % 4)) % this.getTotalSteps;
+			}
+
+			for (let step = 0; step < face; step++) {
+				setTimeout(() => {
+					let boardPositionClass = (boardPositionTemp < 10) ? "C0" + boardPositionTemp : "C" + boardPositionTemp;
+					boardPositionTemp += 1;
+					let newBoardPositionClass = (boardPositionTemp < 10) ? "C0" + boardPositionTemp : "C" + boardPositionTemp;
+
+					console.log(boardPositionClass + " : " + newBoardPositionClass);
+					pieceHTML.children[0].classList.replace(boardPositionClass, newBoardPositionClass);
+					pieceHTML.children[1].classList.replace(boardPositionClass, newBoardPositionClass);
+					pieceHTML.setAttribute("data-boardpositionclass", newBoardPositionClass);
+				}, timeOut);
+
+				timeOut += 500;
+			}*/
+
