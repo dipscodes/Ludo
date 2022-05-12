@@ -22,9 +22,9 @@ const ludo = () => {
 		return star;
 	}
 
-	function rollDie() {
+	/*function rollDie() {
 		return Math.floor((Math.random() * 6) + 1);
-	}
+	}*/
 
 	function cutPieces (boardPositionClass, vulnerability, color) {
 		if (!vulnerability) return [];
@@ -206,7 +206,7 @@ const ludo = () => {
 		open() {
 			this.activate();
 
-			return new Promise((resolve, reject ) => {
+			return new Promise((resolve/*, reject*/) => {
 				const listenerFunction = this.openingListener.bind(this, resolve);
 				this.setHandler = listenerFunction;
 				this.getPiece.addEventListener("click", listenerFunction);
@@ -237,7 +237,7 @@ const ludo = () => {
 		close(face) {
 			this.activate();
 
-			return new Promise((resolve, reject) => {
+			return new Promise((resolve/*, reject*/) => {
 				const functionListener = this.closingListener.bind(this, resolve, face);
 				this.setHandler = functionListener;
 				this.getPiece.addEventListener("click", functionListener);
@@ -287,7 +287,7 @@ const ludo = () => {
 		move(face) {
 			this.activate();
 
-			return new Promise((resolve, reject) => {
+			return new Promise((resolve/*, reject*/) => {
 				const functionListener = this.movingListener.bind(this, resolve, face);
 				this.setHandler = functionListener;
 				this.getPiece.addEventListener("click", functionListener);
@@ -355,9 +355,9 @@ const ludo = () => {
 	class Player {
 		constructor(color) {
 			this.color = color;
-			this.visibility = false;
+			//this.visibility = false;
 			this.listOfPieces = [];
-			this.face = 0;
+			//this.face = 0;
 			this.listOfCellPromises = [];
 			this.handler = null;
 			this.consecutiveSixes = 0;
@@ -402,7 +402,7 @@ const ludo = () => {
 		}
 
 		set setVisibility(state) {
-			this.visibility = state;
+			//this.visibility = state;
 			for (let piece of this.getListOfPieces)	piece.setVisibility = state;
 		}
 
@@ -426,9 +426,9 @@ const ludo = () => {
 			this.listOfCellPromises = emptyList;
 		}
 
-		get setListOfPromises() {
+		/*get setListOfPromises() {
 			return this.listOfCellPromises;
-		}
+		}*/
 
 		replacePiece(color, pieceNumber) {
 			if (!this.getListOfPieces[pieceNumber].getVulnerability) return;
@@ -477,7 +477,7 @@ const ludo = () => {
 			}
 
 			if (noAvailableMoves === this.getNumberOfAvailablePieces) {
-				this.getListOfPromises.push(new Promise((resolve, reject) => { resolve([-1, -1, []]);}));
+				this.getListOfPromises.push(new Promise((resolve/*, reject*/) => { resolve([-1, -1, []]);}));
 			}
 
 			Promise.race(this.getListOfPromises).then((value) => {
@@ -500,7 +500,7 @@ const ludo = () => {
 		}
 
 		rollDiceNew() {
-			return new Promise((resolve, reject) => {
+			return new Promise((resolve/*, reject*/) => { // Maybe "reject" can be used to pass a turn.
 				const listenerFunction = this.listenerMethod.bind(this, resolve);
 				this.setHandler = listenerFunction;
 				this.getPlayerButton.addEventListener("click", listenerFunction);
@@ -520,7 +520,7 @@ const ludo = () => {
 			this.playerArray = [];
 			this.numberOfPlayers = playerCount;
 			this.activePlayer = null;
-			this.activePlayerIndex = 0;
+			//this.activePlayerIndex = 0;
 			this.playerRank = 0;
 
 			for (let iterate of this.colorArray) {
@@ -537,13 +537,18 @@ const ludo = () => {
 			document.getElementById("board").style.display = "flex";
 		}
 
-		get getActivePlayerIndex() {
+		/*get getActivePlayerIndex() {
 			return this.activePlayerIndex;
 		}
 
 		get getColorArray() {
 			return this.colorArray;
 		}
+
+		set setActivePlayerIndex(index) {
+			this.activePlayerIndex = index;
+		}
+		*/
 
 		get getActivePlayer() {
 			return this.activePlayer;
@@ -563,10 +568,6 @@ const ludo = () => {
 
 		set setActivePlayer(activePlayer) {
 			this.activePlayer = activePlayer;
-		}
-
-		set setActivePlayerIndex(index) {
-			this.activePlayerIndex = index;
 		}
 
 		set setNumberOfPlayers(numberOfPlayers) {
@@ -599,13 +600,14 @@ const ludo = () => {
 					}
 
 					if (this.getActivePlayer.getNumberOfAvailablePieces === 0) {
+						makeStar(activePlayerIndex, this.getPlayerRank);
+
 						this.getPlayerArray[activePlayerIndex] = null;
 						this.setNumberOfPlayers = this.getNumberOfPlayers - 1;
 						this.setPlayerRank = this.getPlayerRank + 1;
 
 						playerOffset = 1;
 
-						makeStar(activePlayerIndex, this.getPlayerRank);
 						if (this.getNumberOfPlayers === 0) break;
 					}
 
@@ -622,7 +624,7 @@ const ludo = () => {
 
 	const ludoBoard = new Board(4,6);
 	ludoBoard.play().then((value) => {
-		//console.log(value);
+		console.log(value);
 	});
 };
 
